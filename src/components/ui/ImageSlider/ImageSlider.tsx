@@ -40,6 +40,31 @@ export function ImageSlider({ slides, intervalMs = 6000, className = '', label }
 
   const advance = useCallback(() => setIndex((current) => (current + 1) % slides.length), [slides.length]);
 
+  /*
+   * Which slides have been given a `src` yet.
+   *
+   * Every slide used to load on first paint. With two banners that is a fair trade for a
+   * seamless first cross-fade; with six it would put five images the visitor may never see
+   * on the critical path. So the first slide and the one behind it load up front, and each
+   * advance primes the one after — the set only ever grows, so a slide already fetched is
+   * never dropped and the browser serves it from cache on the way round again.
+   *
+   * Adjusted during render rather than in an effect: the new slide needs its `src` in the
+   * same pass that activates it, or the cross-fade reveals an empty frame.
+   */
+  const [primed, setPrimed] = useState<ReadonlySet<number>>(
+    () => new Set(slides.length > 1 ? [0, 1] : [0]),
+  );
+  const [lastIndex, setLastIndex] = useState(0);
+
+  if (index !== lastIndex) {
+    setLastIndex(index);
+    const upcoming = (index + 1) % slides.length;
+    if (!primed.has(index) || !primed.has(upcoming)) {
+      setPrimed(new Set(primed).add(index).add(upcoming));
+    }
+  }
+
   useEffect(() => {
     if (reducedMotion || paused || slides.length < 2) return;
     timer.current = window.setInterval(advance, intervalMs);
@@ -85,15 +110,17 @@ export function ImageSlider({ slides, intervalMs = 6000, className = '', label }
     >
       {slides.map((slide, slideIndex) => (
         <img
-          key={slide.src}
+          /* Index is part of the key because the same image may legitimately appear twice,
+             for instance the same artwork cropped differently. */
+          key={`${slide.src}-${slideIndex}`}
           className={`${styles.slide} ${slideIndex === active ? styles.active : ''}`}
-          src={slide.src}
+          src={primed.has(slideIndex) ? slide.src : undefined}
           alt={slide.alt}
           width={slide.width}
           height={slide.height}
           style={slide.objectPosition ? { objectPosition: slide.objectPosition } : undefined}
-          /* The first slide is the largest contentful paint; the rest are prefetched
-             eagerly so a cross-fade never reveals a half-loaded image. */
+          /* The first slide is the largest contentful paint; anything primed behind it is
+             fetched at low priority so it never competes with the visible one. */
           fetchPriority={slideIndex === 0 ? 'high' : 'low'}
           decoding="async"
           aria-hidden={slideIndex === active ? undefined : true}

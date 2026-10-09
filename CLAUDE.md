@@ -232,6 +232,16 @@ carousel dependency. It cross-fades on a 6s interval (1100ms opacity fade plus a
 box and `position: absolute` slides. Placement is the consumer's job, which is why
 `Hero.module.css` sets `.banner` to `absolute; inset: 0`.
 
+**It takes any number of slides.** Nothing assumes two: the advance wraps on
+`slides.length`, the dots are generated per slide and announce "n of m", and the index is
+part of each React key so the same artwork can appear twice with a different crop. Adding a
+banner is one entry in `SLIDES` in `Hero.tsx` — verified by running it with four.
+
+**Slides load progressively.** The first slide and the one behind it are fetched up front;
+each advance primes the next. With two banners that is the same two requests as before, but
+it means six banners no longer put five unseen images on the critical path. The set only
+grows, so nothing is re-fetched on the way round.
+
 **The banner is desktop only.** Below 861px (`BANNER_MIN_WIDTH` in `Hero.tsx`, matching
 the layout breakpoint in the stylesheet) the hero is copy on the navy gradient and no
 slider is rendered. There is no room for a photograph beside the copy at those widths, and
