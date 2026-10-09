@@ -14,6 +14,7 @@ export interface Slide {
 
 interface ImageSliderProps {
   slides: Slide[];
+  /** How long each slide holds before advancing. The fade and drift are in the stylesheet. */
   intervalMs?: number;
   className?: string;
   label: string;
@@ -27,16 +28,16 @@ interface ImageSliderProps {
  * Three behaviours matter more than the animation itself:
  *   - `prefers-reduced-motion` stops the rotation entirely and shows the first slide,
  *     because an unstoppable moving background is exactly what that setting is for.
- *   - Hovering or focusing anywhere in the banner pauses it, so it never moves out
- *     from under someone reading or tabbing through.
+ *   - Hovering or focusing the dots pauses it, so reaching for a control does not change
+ *     the slide under your cursor. The banner itself does not pause: scoped to the whole
+ *     hero, a pointer merely resting on the page stopped it advancing at all.
  *   - A hidden tab pauses it too; there is no reason to animate what nobody is watching.
  */
-export function ImageSlider({ slides, intervalMs = 6000, className = '', label }: ImageSliderProps) {
+export function ImageSlider({ slides, intervalMs = 10000, className = '', label }: ImageSliderProps) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const reducedMotion = useReducedMotion();
   const timer = useRef<number | undefined>(undefined);
-  const root = useRef<HTMLDivElement>(null);
 
   const advance = useCallback(() => setIndex((current) => (current + 1) % slides.length), [slides.length]);
 
@@ -77,32 +78,10 @@ export function ImageSlider({ slides, intervalMs = 6000, className = '', label }
     return () => document.removeEventListener('visibilitychange', onVisibility);
   }, []);
 
-  /* The slider is a backdrop: the content that sits on top of it is a sibling, not a
-     child, so pointer and focus events over that content never reach this element.
-     Listening on the parent makes the pause cover the whole banner area, which is what
-     someone reading or tabbing through it expects. */
-  useEffect(() => {
-    const region = root.current?.parentElement;
-    if (!region) return;
-    const pause = () => setPaused(true);
-    const resume = () => setPaused(false);
-    region.addEventListener('pointerenter', pause);
-    region.addEventListener('pointerleave', resume);
-    region.addEventListener('focusin', pause);
-    region.addEventListener('focusout', resume);
-    return () => {
-      region.removeEventListener('pointerenter', pause);
-      region.removeEventListener('pointerleave', resume);
-      region.removeEventListener('focusin', pause);
-      region.removeEventListener('focusout', resume);
-    };
-  }, []);
-
   const active = reducedMotion ? 0 : index;
 
   return (
     <div
-      ref={root}
       className={`${styles.slider} ${className}`}
       role="group"
       aria-roledescription="carousel"
@@ -128,7 +107,22 @@ export function ImageSlider({ slides, intervalMs = 6000, className = '', label }
       ))}
 
       {slides.length > 1 && !reducedMotion && (
-        <div className={styles.dots}>
+        /*
+         * The pause is scoped to the controls, not the banner.
+         *
+         * It used to cover the whole hero so that hovering the copy would pause it. That
+         * made the hero — most of the viewport — one big pause target, so a pointer simply
+         * resting there stopped the slider indefinitely. A background banner does not need
+         * to hold still for a reader; the controls do, so that reaching for a dot does not
+         * change the slide under your cursor.
+         */
+        <div
+          className={styles.dots}
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          onFocusCapture={() => setPaused(true)}
+          onBlurCapture={() => setPaused(false)}
+        >
           {slides.map((slide, slideIndex) => (
             <button
               key={slide.src}

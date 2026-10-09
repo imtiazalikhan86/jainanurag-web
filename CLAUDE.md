@@ -232,6 +232,21 @@ carousel dependency. It cross-fades on a 6s interval (1100ms opacity fade plus a
 box and `position: absolute` slides. Placement is the consumer's job, which is why
 `Hero.module.css` sets `.banner` to `absolute; inset: 0`.
 
+**Timing lives in two places and they have to agree.** `intervalMs` (10s) is how long a
+slide holds; the `drift` keyframe duration in the stylesheet (11s) is the Ken Burns zoom.
+The zoom must be *longer* than the hold, or the image visibly stops moving and sits still
+before it hands over.
+
+**The drift is a CSS animation, not a transition.** A transition needs a previous value to
+move from, and the first slide is already active on its first render — so it had nothing to
+animate from and simply sat still, which read as "the zoom is broken". An animation runs
+whenever the class is applied, mount included.
+
+**The auto-advance pauses only over the dots**, plus on a hidden tab and on keyboard focus.
+It once paused on hover anywhere in the banner's container, which is the whole hero — most
+of the viewport — so a pointer merely resting on the page stopped the slider indefinitely
+and it looked frozen. A background banner does not need to hold still for a reader.
+
 **It takes any number of slides.** Nothing assumes two: the advance wraps on
 `slides.length`, the dots are generated per slide and announce "n of m", and the index is
 part of each React key so the same artwork can appear twice with a different crop. Adding a
@@ -316,6 +331,9 @@ and a production build inlines the URL as a string.
   paints a stale frame first. The fix is to adjust state during render against a tracked
   previous value (`useMediaQuery`, `PrimaryNav`, `MobileMenu` all do this), which also
   catches changes no click handler would see, such as the browser back button.
+- **A hover pause is only as good as its target.** Scoped to a hero-sized element, "pause
+  while the pointer is here" becomes "never advance", because a pointer resting anywhere on
+  the page satisfies it. Scope a pause to the controls, not the content.
 - **`mouseenter` does not fire when moving between two descendants of the same element.**
   A hover menu whose open handler is `mouseenter` on the wrapper will close under the
   pointer and refuse to reopen once the pointer is already inside. Use `mouseover`, which

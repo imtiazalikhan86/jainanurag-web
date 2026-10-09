@@ -15,16 +15,32 @@
   height: 100%;
   object-fit: cover;
   opacity: 0;
-  /* A slow drift while a slide is on screen, so the banner breathes rather than sits
-     still, paired with a long fade so the change never snaps. */
-  transform: scale(1.06);
-  transition: opacity 1100ms ease-in-out, transform 7000ms ease-out;
+  /* Long enough that the change never snaps, short enough to stay inside the hold. */
+  transition: opacity 900ms ease-in-out;
   will-change: opacity, transform;
 }
 
+/*
+ * The drift is an animation, not a transition.
+ *
+ * A transition needs a previous value to move from, and the first slide is already active
+ * on its very first render — so it had nothing to animate from and simply sat still. An
+ * animation runs whenever the class is applied, mount included, so every slide drifts.
+ *
+ * It ends at scale(1), which is also the resting state, so the outgoing slide does not
+ * jump when the animation is taken away mid-fade.
+ *
+ * The duration must stay LONGER than `intervalMs` in the component (11s against a 10s
+ * hold). Shorter and the image finishes moving, then sits dead still until it hands over.
+ */
 .active {
   opacity: 1;
-  transform: scale(1);
+  animation: drift 11000ms ease-out both;
+}
+
+@keyframes drift {
+  from { transform: scale(1.08); }
+  to { transform: scale(1); }
 }
 
 .dots {
@@ -61,6 +77,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .slide { transition: none; transform: none; }
-  .active { transform: none; }
+  .slide { transition: none; }
+  .active { animation: none; }
 }
