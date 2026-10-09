@@ -1,0 +1,176 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(6, 19, 36, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition);
+}
+.backdropOpen { opacity: 1; pointer-events: auto; }
+
+.drawer {
+  position: fixed;
+  z-index: 100;
+  inset: 0 0 0 auto;
+  width: min(360px, 88vw);
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  padding: var(--sp-5);
+  transform: translateX(100%);
+  transition: transform 220ms cubic-bezier(0.4, 0, 0.2, 1);
+  /* The nav scrolls, not the drawer, so the contact block stays reachable. */
+  overflow: hidden;
+}
+.drawerOpen { transform: translateX(0); }
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--sp-5);
+}
+
+.brand {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--ink-800);
+}
+
+.close {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink-800);
+}
+
+.list { display: grid; gap: var(--sp-1); }
+
+.link {
+  display: block;
+  padding: var(--sp-3) var(--sp-3);
+  border-radius: var(--radius-sm);
+  color: var(--ink-800);
+  font-weight: 600;
+}
+.link:hover { background: var(--paper-tint); color: var(--ink-800); }
+.link[aria-current='page'] {
+  color: var(--accent-700);
+  background: var(--accent-100);
+}
+
+/*
+ * The nav takes the space left over and scrolls inside it. `min-height: 0` is required to
+ * let a flex item scroll at all, and `overflow-y` is what makes it scroll rather than
+ * silently overflow under the block beneath — which is exactly what it did without it.
+ */
+.nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.group { display: grid; }
+
+.groupHead {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.groupHead .link { flex: 1; }
+
+.disclosure {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--ink-700);
+  transition: background var(--transition), border-color var(--transition);
+}
+.disclosure:hover { background: var(--paper-tint); }
+.disclosure svg { transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1); }
+.disclosureOpen svg { transform: rotate(180deg); }
+
+/*
+ * 0fr to 1fr is the one way to transition to a height the content decides. The inner list
+ * must clip, or it spills out of the collapsed row instead of being hidden by it.
+ */
+.subWrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 260ms cubic-bezier(0.22, 1, 0.36, 1), opacity 160ms ease;
+  opacity: 0;
+}
+
+.subWrapOpen {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.subList {
+  overflow: hidden;
+  display: grid;
+  gap: 1px;
+  margin-left: var(--sp-3);
+  padding-left: var(--sp-3);
+  border-left: 2px solid var(--line);
+}
+
+.subWrapOpen .subList { padding-block: var(--sp-1) var(--sp-2); }
+
+.subHeading {
+  margin: var(--sp-3) 0 var(--sp-1);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.subList > li:first-child .subHeading { margin-top: var(--sp-1); }
+
+.subLink {
+  display: block;
+  padding: var(--sp-2) var(--sp-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  color: var(--text-body);
+}
+.subLink { transition: background var(--transition), color var(--transition); }
+.subLink:hover { background: var(--paper-tint); color: var(--ink-800); }
+.subLink[aria-current='page'] { color: var(--accent-700); font-weight: 600; }
+
+.footer {
+  flex: none;
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: var(--sp-3);
+}
+
+.contact {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+/* Matches the header nav breakpoint: above it the full nav is shown and the drawer must never appear. */
+@media (min-width: 1181px) {
+  .drawer, .backdrop { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .subWrap, .disclosure svg, .subLink, .link { transition: none; }
+}

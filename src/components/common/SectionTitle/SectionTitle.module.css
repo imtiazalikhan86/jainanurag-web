@@ -1,0 +1,29 @@
+.wrap {
+  display: grid;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-8);
+  max-width: 44rem;
+}
+
+.center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.left { max-width: 40rem; }
+
+.eyebrow {
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-700);
+}
+
+.description {
+  font-size: var(--fs-lead);
+  color: var(--text-muted);
+}
+
+.onDark .eyebrow { color: var(--accent-500); }
+.onDark .description { color: var(--text-on-dark-muted); }

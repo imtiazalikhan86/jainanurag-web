@@ -1,0 +1,243 @@
+.nav {
+  display: flex;
+  flex: none;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-1);
+}
+
+.item {
+  position: relative;
+  display: flex;
+}
+
+/*
+ * Bridges the gap between the trigger and the panel so the pointer never leaves the item
+ * on the way down. It belongs to the item, not the panel: on the panel it was as wide as
+ * the panel itself and sat over the bottom edge of the neighbouring triggers.
+ */
+.hasPanel::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  inset-inline: 0;
+  height: 12px;
+}
+
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  white-space: nowrap;
+  padding: var(--sp-2) var(--sp-3);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--text-body);
+  transition: color var(--transition), background var(--transition);
+}
+
+.trigger:hover { color: var(--ink-800); background: var(--paper-tint); }
+
+.trigger[aria-current='page'] {
+  color: var(--accent-700);
+  font-weight: 600;
+}
+
+.chevron {
+  transition: transform var(--transition);
+  opacity: 0.6;
+}
+
+.itemOpen .chevron { transform: rotate(180deg); }
+.itemOpen .trigger { color: var(--ink-800); background: var(--paper-tint); }
+
+/*
+ * The panels hang off the header, centred under it rather than under their trigger.
+ *
+ * Closed is the default state and `inert` (set in the component) keeps a closed panel out
+ * of the tab order and the accessibility tree. `visibility` is what makes it untargetable
+ * by the pointer, and transitioning it with a delay equal to the fade means it stays
+ * visible for the whole way out — which is the part `display: none` could never do.
+ */
+.panel {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 10px);
+  z-index: 60;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 24px 60px rgba(6, 19, 36, 0.16);
+  padding: var(--sp-6);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(-10px) scale(0.985);
+  transform-origin: top center;
+  transition:
+    opacity 170ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s linear 220ms;
+}
+
+.panelOpen {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0) scale(1);
+  transition:
+    opacity 150ms ease-out,
+    transform 260ms cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0s;
+}
+
+
+.mega { width: min(960px, calc(100vw - 2 * var(--sp-5))); }
+.narrow { width: min(330px, calc(100vw - 2 * var(--sp-5))); }
+
+.megaColumns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sp-5);
+}
+
+.columnHeading {
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--sp-3);
+}
+
+.columnList, .panelList {
+  display: grid;
+  gap: 2px;
+}
+
+.megaLink {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-2);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  color: var(--text-body);
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+
+.megaLink:hover { transform: translateX(2px); }
+
+.megaLink:hover, .megaLink:focus-visible {
+  background: var(--paper-tint);
+  color: var(--ink-800);
+}
+
+.megaIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-sm);
+  background: var(--accent-100);
+  color: var(--accent-700);
+  transition: background var(--transition), color var(--transition);
+}
+
+.megaLink:hover .megaIcon { background: var(--accent-600); color: #fff; }
+
+.panelFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-top: var(--sp-5);
+  padding-top: var(--sp-4);
+  border-top: 1px solid var(--line);
+}
+
+.note {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.panelCta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent-700);
+  white-space: nowrap;
+  transition: color var(--transition);
+}
+
+.panelCta:hover { color: var(--accent-600); }
+.panelCta svg { transition: transform var(--transition); }
+.panelCta:hover svg { transform: translateX(3px); }
+
+.panelLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding: var(--sp-3);
+  border-radius: var(--radius-md);
+  transition: background var(--transition);
+}
+
+.panelLink strong {
+  display: block;
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--ink-800);
+}
+
+.panelLink small {
+  display: block;
+  margin-top: 2px;
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+.panelLink:hover, .panelLink:focus-visible { background: var(--paper-tint); }
+.panelLink:hover .panelArrow, .panelLink:focus-visible .panelArrow { transform: translateX(3px); color: var(--accent-700); }
+.panelLink:hover strong, .panelLink:focus-visible strong { color: var(--accent-700); }
+
+.panelArrow {
+  flex: none;
+  color: var(--text-muted);
+  transition: transform var(--transition), color var(--transition);
+}
+
+.panelButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  margin-top: var(--sp-4);
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--radius-md);
+  background: var(--accent-100);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent-700);
+  transition: background var(--transition);
+}
+
+.panelButton:hover { background: var(--accent-100); color: var(--accent-600); }
+
+@media (prefers-reduced-motion: reduce) {
+  /* Still hidden when closed and shown when open, just without the travel. */
+  .panel, .panelOpen {
+    transform: translateX(-50%);
+    transition: visibility 0s;
+  }
+  .chevron, .megaLink, .megaIcon, .panelArrow, .panelCta svg { transition: none; }
+  .megaLink:hover, .panelLink:hover .panelArrow, .panelCta:hover svg { transform: none; }
+}

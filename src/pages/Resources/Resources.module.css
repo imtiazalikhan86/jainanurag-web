@@ -1,0 +1,165 @@
+.heading {
+  font-size: var(--fs-h2);
+  color: var(--ink-900);
+  margin-bottom: var(--sp-6);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
+  gap: var(--sp-4);
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: var(--sp-5);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition);
+}
+
+a.card:hover {
+  border-color: var(--accent-500);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-2px);
+}
+
+/* The calculator cards are not links yet, so they must not pretend to be. */
+.cardStatic { background: var(--paper-tint); }
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: var(--accent-100);
+  color: var(--accent-700);
+  margin-bottom: var(--sp-4);
+}
+
+.card strong {
+  font-family: var(--font-heading);
+  font-size: var(--fs-h3);
+  color: var(--ink-900);
+  margin-bottom: var(--sp-2);
+}
+
+.card small {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  margin-bottom: var(--sp-4);
+}
+
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  margin-top: auto;
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent-700);
+}
+
+.badge {
+  align-self: flex-start;
+  margin-top: auto;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.pending {
+  display: flex;
+  gap: var(--sp-4);
+  max-width: 72ch;
+  margin-top: var(--sp-7);
+  padding: var(--sp-5);
+  background: var(--paper-tint);
+  border-left: 3px solid var(--accent-600);
+  border-radius: var(--radius-sm);
+}
+
+.pending > svg { flex: none; color: var(--accent-700); margin-top: 2px; }
+.pending strong { display: block; font-family: var(--font-heading); color: var(--ink-900); margin-bottom: var(--sp-2); }
+.pending p { color: var(--text-muted); font-size: var(--fs-sm); margin-bottom: var(--sp-3); }
+
+.pendingLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent-700);
+}
+.pendingLink:hover { text-decoration: underline; }
+
+/* Wide content scrolls inside its own box; the page never scrolls sideways. */
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+}
+
+.table {
+  width: 100%;
+  min-width: 620px;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th, .table td {
+  padding: var(--sp-4);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--fs-sm);
+  vertical-align: top;
+}
+
+.table thead th {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--paper-tint);
+}
+
+.table tbody th {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--ink-900);
+  white-space: nowrap;
+}
+
+.table td { color: var(--text-muted); }
+.table tbody tr:last-child th, .table tbody tr:last-child td { border-bottom: 0; }
+
+.tagApostille, .tagConsular {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.tagApostille { background: var(--accent-100); color: var(--accent-700); }
+.tagConsular { background: var(--gold-100); color: #7a5a21; }
+
+.tableNote {
+  max-width: 72ch;
+  margin-top: var(--sp-4);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+  a.card:hover { transform: none; }
+}

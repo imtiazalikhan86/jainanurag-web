@@ -1,0 +1,86 @@
+.steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--sp-5);
+  position: relative;
+}
+
+/* The connecting rule sits behind the markers and is purely decorative. */
+.steps::before {
+  content: '';
+  position: absolute;
+  top: 26px;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-100), var(--accent-600), var(--accent-100));
+  z-index: 0;
+}
+
+.step {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  display: grid;
+  gap: var(--sp-2);
+  justify-items: center;
+}
+
+.marker {
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--paper);
+  border: 2px solid var(--accent-600);
+  color: var(--accent-700);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: var(--sp-2);
+  transition: background var(--transition), color var(--transition), transform var(--transition);
+}
+
+.step:hover .marker {
+  background: var(--accent-600);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.title { font-size: 1.05rem; color: var(--text-strong); }
+
+.description {
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  max-width: 20ch;
+}
+
+@media (max-width: 1024px) {
+  .steps { grid-template-columns: repeat(3, 1fr); row-gap: var(--sp-7); }
+  .steps::before { display: none; }
+}
+
+@media (max-width: 600px) {
+  /* Below 600 the row becomes a vertical timeline, which reads better than cramped columns. */
+  .steps { grid-template-columns: 1fr; gap: 0; }
+  .step {
+    grid-template-columns: 54px 1fr;
+    justify-items: start;
+    text-align: left;
+    gap: var(--sp-2) var(--sp-4);
+    padding-bottom: var(--sp-6);
+    position: relative;
+  }
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 26px;
+    top: 58px;
+    bottom: 8px;
+    width: 2px;
+    background: var(--accent-100);
+  }
+  .marker { grid-row: span 2; margin-bottom: 0; }
+  .description { max-width: none; }
+}

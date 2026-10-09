@@ -1,0 +1,146 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(160deg, var(--ink-900) 0%, var(--ink-800) 48%, #0d2a4a 100%);
+  color: var(--text-on-dark);
+  overflow: hidden;
+  padding-block: clamp(3rem, 1.75rem + 5.5vw, 5.5rem);
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.copy {
+  position: relative;
+  z-index: 2;
+  /* Wide enough to keep the headline to four lines at desktop widths, narrow enough
+     that it never runs over the people in the artwork. */
+  max-width: 38rem;
+  /* Half the hero at most, so the copy never creeps over the people in the artwork. */
+  padding-right: var(--sp-5);
+}
+
+/*
+ * Positioning only. How a slide looks and moves belongs to ImageSlider; the hero just
+ * says where the slider sits and how it behaves when the layout stacks.
+ */
+.banner {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/*
+ * Contrast guard. The artwork fades to navy on its left, but the fade sits at a fixed
+ * point in the image and the viewport is not, so this gradient does the actual work of
+ * keeping the headline legible at every width.
+ */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(6, 19, 36, 0.96) 0%,
+    rgba(6, 19, 36, 0.9) 30%,
+    rgba(6, 19, 36, 0.66) 48%,
+    rgba(6, 19, 36, 0.32) 68%,
+    rgba(6, 19, 36, 0.14) 100%
+  );
+  pointer-events: none;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-500);
+  margin-bottom: var(--sp-4);
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent-500);
+}
+
+.title {
+  color: #fff;
+  margin-bottom: var(--sp-5);
+  text-wrap: balance;
+}
+
+.accent { color: var(--accent-500); }
+
+.lead {
+  font-size: var(--fs-lead);
+  color: var(--text-on-dark-muted);
+  margin-bottom: var(--sp-7);
+  max-width: 32rem;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-7);
+}
+
+.highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3) var(--sp-5);
+  padding-top: var(--sp-5);
+  border-top: 1px solid var(--line-dark);
+  max-width: 32rem;
+}
+.highlights li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-sm);
+  color: var(--text-on-dark-muted);
+}
+.highlights svg { color: var(--accent-500); flex: none; }
+
+@media (max-width: 1100px) {
+  /* Less room for copy, so the overlay carries more of the contrast. */
+  .hero::after {
+    background: linear-gradient(
+      90deg,
+      rgba(6, 19, 36, 0.97) 0%,
+      rgba(6, 19, 36, 0.93) 42%,
+      rgba(6, 19, 36, 0.72) 62%,
+      rgba(6, 19, 36, 0.4) 100%
+    );
+  }
+}
+
+@media (max-width: 860px) {
+  /*
+   * Below this width there is no room for text beside the photograph, so the banner is
+   * not rendered at all (see Hero.tsx) and the copy gets the full width over the navy
+   * gradient. Nothing is ever read over a face.
+   */
+  .copy { max-width: none; padding-right: 0; }
+
+  .hero::after { display: none; }
+  .highlights { max-width: none; }
+}
+
+@media (max-width: 480px) {
+  .actions { flex-direction: column; align-items: stretch; }
+  .highlights { gap: var(--sp-2) var(--sp-4); }
+}

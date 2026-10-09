@@ -1,0 +1,35 @@
+.wrap {
+  display: grid;
+  gap: var(--sp-4);
+  justify-items: center;
+  text-align: center;
+  padding-block: var(--sp-8);
+}
+
+.eyebrow {
+  font-size: var(--fs-eyebrow);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent-700);
+}
+
+.title { font-size: var(--fs-h2); }
+
+.description {
+  color: var(--text-muted);
+  font-size: var(--fs-lead);
+  max-width: 44ch;
+}
+
+.actions {
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: var(--sp-4);
+}
+
+@media (max-width: 480px) {
+  .actions { width: 100%; flex-direction: column; }
+}

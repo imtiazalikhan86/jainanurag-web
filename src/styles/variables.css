@@ -1,0 +1,91 @@
+/*
+ * Design tokens. Every colour, space, radius and shadow in the app resolves to one of
+ * these, so a brand change is a change here rather than a search across components.
+ */
+:root {
+  /* Brand ------------------------------------------------------------------ */
+  --ink-900: #061324;   /* deepest navy: hero and dark bands */
+  --ink-800: #0b1f3a;   /* primary brand navy */
+  --ink-700: #14314f;
+  --ink-600: #27496d;
+  --ink-500: #4a6585;   /* muted body text on light */
+  --ink-300: #9aacc0;
+  --ink-100: #d9e2ec;
+
+  --accent-700: #0a6b5d;
+  --accent-600: #0e8f7e;  /* primary accent: emerald, signals growth without shouting */
+  --accent-500: #19a894;
+  --accent-100: #e3f5f1;
+
+  --gold-500: #b8893b;    /* sparingly, for premium emphasis */
+  --gold-100: #f7eedd;
+
+  /* Neutrals --------------------------------------------------------------- */
+  --paper: #ffffff;
+  --paper-warm: #faf8f4;  /* warm off-white keeps the page from feeling clinical */
+  --paper-tint: #f2f6f8;
+  --line: #e4e9ef;
+  --line-dark: rgba(255, 255, 255, 0.14);
+
+  /* Semantic --------------------------------------------------------------- */
+  --text-strong: var(--ink-800);
+  --text-body: #44586f;
+  --text-muted: var(--ink-500);
+  --text-on-dark: #eaf1f8;
+  --text-on-dark-muted: #a8bdd4;
+
+  /* Typography ------------------------------------------------------------- */
+  --font-heading: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Fluid type: scales with the viewport so there is no jump between breakpoints */
+  --fs-display: clamp(2.25rem, 1.35rem + 3.6vw, 3.9rem);
+  /* Inner-page headline: smaller than the homepage display, larger than a section title. */
+  --fs-h1: clamp(2rem, 1.45rem + 2.3vw, 3.1rem);
+  --fs-h2: clamp(1.75rem, 1.25rem + 1.9vw, 2.6rem);
+  --fs-h3: clamp(1.15rem, 1.02rem + 0.5vw, 1.4rem);
+  --fs-lead: clamp(1rem, 0.94rem + 0.3vw, 1.18rem);
+  --fs-body: 1rem;
+  --fs-sm: 0.9rem;
+  --fs-xs: 0.8rem;
+  --fs-eyebrow: 0.75rem;
+
+  --lh-tight: 1.12;
+  --lh-snug: 1.3;
+  --lh-body: 1.65;
+
+  /* Spacing: a 4px base scale, so vertical rhythm stays consistent ---------- */
+  --sp-1: 0.25rem;
+  --sp-2: 0.5rem;
+  --sp-3: 0.75rem;
+  --sp-4: 1rem;
+  --sp-5: 1.5rem;
+  --sp-6: 2rem;
+  --sp-7: 2.5rem;
+  --sp-8: 3rem;
+  --sp-9: 4rem;
+  --sp-10: 5rem;
+  --section-y: clamp(3.5rem, 2.2rem + 5vw, 6.5rem);
+
+  /* Shape ------------------------------------------------------------------ */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+  --radius-xl: 26px;
+  --radius-pill: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(11, 31, 58, 0.06), 0 2px 8px rgba(11, 31, 58, 0.04);
+  --shadow-md: 0 4px 16px rgba(11, 31, 58, 0.08);
+  --shadow-lg: 0 18px 48px rgba(11, 31, 58, 0.12);
+
+  /* Layout ----------------------------------------------------------------- */
+  --container: 1200px;
+  --container-narrow: 820px;
+  --header-h: 76px;
+
+  --transition: 180ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Breakpoints exist as documentation; CSS custom properties cannot be used in
+   media queries, so the same values are written literally in responsive.css:
+   1440 / 1280 / 1024 / 768 / 480 / 375 */

@@ -1,0 +1,13 @@
+.grid {
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+}
+
+@media (min-width: 1100px) {
+  .grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.foot {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--sp-7);
+}

@@ -1,0 +1,17 @@
+.section {
+  padding-block: var(--section-y);
+  position: relative;
+}
+
+.default { background: var(--paper); }
+.warm { background: var(--paper-warm); }
+.tint { background: var(--paper-tint); }
+
+.dark {
+  background: var(--ink-900);
+  color: var(--text-on-dark);
+}
+.dark :global(h2),
+.dark :global(h3) {
+  color: #fff;
+}

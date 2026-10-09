@@ -1,0 +1,60 @@
+.cta {
+  padding-block: var(--section-y);
+  background: var(--paper-warm);
+}
+
+.panel {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: var(--sp-8);
+  align-items: center;
+  padding: clamp(2rem, 1.2rem + 3vw, 3.5rem);
+  border-radius: var(--radius-xl);
+  background: linear-gradient(140deg, var(--ink-900), var(--ink-700));
+  color: var(--text-on-dark);
+  box-shadow: var(--shadow-lg);
+}
+
+.title { color: #fff; margin-bottom: var(--sp-4); text-wrap: balance; }
+
+.lead {
+  color: var(--text-on-dark-muted);
+  font-size: var(--fs-lead);
+  margin-bottom: var(--sp-6);
+  max-width: 42rem;
+}
+
+/* `align-items: center` matters: stretch would make every button as tall as the
+   tallest, so one button with an icon silently resizes its neighbours. */
+.actions { display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap; }
+
+.meta {
+  display: grid;
+  gap: var(--sp-4);
+  padding-left: var(--sp-7);
+  border-left: 1px solid var(--line-dark);
+}
+.meta dt {
+  font-size: var(--fs-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-500);
+  margin-bottom: var(--sp-1);
+}
+.meta dd { margin: 0; font-size: var(--fs-sm); color: #fff; }
+.meta a { color: #fff; }
+.meta a:hover { color: var(--accent-500); }
+
+@media (max-width: 900px) {
+  .panel { grid-template-columns: 1fr; gap: var(--sp-6); }
+  .meta {
+    padding-left: 0;
+    padding-top: var(--sp-5);
+    border-left: 0;
+    border-top: 1px solid var(--line-dark);
+  }
+}
+
+@media (max-width: 480px) {
+  .actions { flex-direction: column; align-items: stretch; }
+}

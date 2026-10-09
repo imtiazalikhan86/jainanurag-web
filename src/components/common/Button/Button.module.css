@@ -1,0 +1,83 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+  transition: background var(--transition), color var(--transition), border-color var(--transition),
+    transform var(--transition), box-shadow var(--transition);
+}
+
+/*
+ * Two sizes, both on a standard scale: md lands at about 42px tall and lg at about 48px,
+ * which keeps every button a comfortable tap target without the oversized pills the page
+ * had before. lg is for a single primary action in a hero, not for every call to action.
+ */
+.md { padding: 0.62rem 1.25rem; font-size: var(--fs-sm); }
+.lg { padding: 0.78rem 1.55rem; font-size: var(--fs-sm); }
+.full { width: 100%; }
+
+/*
+ * The label span wraps whatever was passed as children, which is sometimes an icon
+ * alongside text. As a block it let the two fall onto separate lines and silently made the
+ * button half as tall again; as a flex row they stay on one line whatever is inside.
+ */
+.btn > span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  white-space: nowrap;
+}
+
+.primary {
+  background: var(--accent-600);
+  color: #fff;
+  box-shadow: 0 6px 18px rgba(14, 143, 126, 0.22);
+}
+.primary:hover {
+  background: var(--accent-700);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.secondary {
+  background: var(--paper);
+  color: var(--ink-800);
+  border-color: var(--line);
+}
+.secondary:hover {
+  border-color: var(--ink-600);
+  color: var(--ink-800);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--ink-800);
+  padding-inline: 0;
+}
+.ghost:hover { color: var(--accent-700); }
+
+/* For dark bands, where a white outline reads better than a tinted fill. */
+.onDark {
+  background: transparent;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.onDark:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #fff;
+  color: #fff;
+}
+
+.arrow { transition: transform var(--transition); flex: none; }
+.btn:hover .arrow { transform: translateX(3px); }
+
+@media (max-width: 480px) {
+  /* Buttons go full width on small screens so taps land reliably. */
+  .md, .lg { width: 100%; }
+}
