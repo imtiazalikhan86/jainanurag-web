@@ -129,11 +129,22 @@ bleed photograph of the South Mumbai skyline at dusk
 already named in the copy — and it is the LCP element on those pages, so it loads eagerly
 at high priority rather than lazily.
 
+It is a **page header strip, not a second hero**: full width, deliberately short — roughly
+265-330px at desktop depending on whether the page carries a button.
+
+The photograph is graded, not used as shot. The original was hazy: only 205 of 256 levels
+used, median luma 153, mean saturation 0.21 — and darkening haze gives mud, which is
+exactly how it first looked. A percentile stretch, an S-curve and a 1.5x saturation lift
+bring it to 248 levels and 0.42 saturation, so the towers read as silhouettes against a
+warm sky. Graded into the asset rather than applied as a CSS filter, which would cost a
+repaint on every page.
+
 Two overlays sit on it: a horizontal fade so the copy keeps solid navy, and a vertical one
 so the photograph meets the top and bottom edges instead of being cut off. Below 900px the
 copy runs the full width and sits right across the image, so the overlay strengthens rather
 than the image disappearing. Verified: every text run measures 7.85:1 or better against the
-photograph, at widths from 375 to 2560.
+photograph, at widths from 375 to 2560 — re-measured after the grade, because a brighter
+image under a lighter overlay is exactly where contrast quietly slips.
 
 ### Logo
 

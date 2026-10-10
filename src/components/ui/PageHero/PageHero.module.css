@@ -4,7 +4,8 @@
   overflow: hidden;
   background: linear-gradient(160deg, var(--ink-900) 0%, var(--ink-800) 55%, var(--ink-700) 100%);
   color: var(--text-on-dark);
-  padding-block: clamp(2.5rem, 1.5rem + 4.5vw, 4.5rem);
+  /* A page header strip, not a second hero: full width, deliberately short. */
+  padding-block: clamp(1.5rem, 1rem + 1.6vw, 2.4rem);
 }
 
 /* Full bleed across the band. */
@@ -31,15 +32,15 @@
   z-index: 1;
   background:
     linear-gradient(90deg,
-      rgba(1, 18, 47, 0.95) 0%,
-      rgba(1, 18, 47, 0.9) 42%,
-      rgba(1, 18, 47, 0.78) 62%,
-      rgba(1, 18, 47, 0.62) 82%,
-      rgba(1, 18, 47, 0.52) 100%),
+      rgba(1, 18, 47, 0.94) 0%,
+      rgba(1, 18, 47, 0.88) 42%,
+      rgba(1, 18, 47, 0.7) 62%,
+      rgba(1, 18, 47, 0.46) 82%,
+      rgba(1, 18, 47, 0.34) 100%),
     linear-gradient(180deg,
-      rgba(1, 18, 47, 0.5) 0%,
-      rgba(1, 18, 47, 0.12) 45%,
-      rgba(1, 18, 47, 0.55) 100%);
+      rgba(1, 18, 47, 0.42) 0%,
+      rgba(1, 18, 47, 0.06) 45%,
+      rgba(1, 18, 47, 0.46) 100%);
   pointer-events: none;
 }
 
@@ -49,7 +50,7 @@
 }
 
 .crumbs {
-  margin-bottom: var(--sp-5);
+  margin-bottom: var(--sp-3);
   font-size: var(--fs-sm);
 }
 
@@ -78,7 +79,7 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--accent-500);
-  margin-bottom: var(--sp-3);
+  margin-bottom: var(--sp-2);
 }
 
 .title {
@@ -89,7 +90,7 @@
 }
 
 .lead {
-  margin-top: var(--sp-4);
+  margin-top: var(--sp-3);
   max-width: 62ch;
   font-size: var(--fs-lead);
   color: var(--text-on-dark-muted);
@@ -100,7 +101,7 @@
   align-items: center;
   flex-wrap: wrap;
   gap: var(--sp-3);
-  margin-top: var(--sp-6);
+  margin-top: var(--sp-4);
 }
 
 @media (max-width: 900px) {
