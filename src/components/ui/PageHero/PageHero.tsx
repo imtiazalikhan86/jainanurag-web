@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from '../../common/Container/Container';
 import { Icon } from '../../common/Icon/Icon';
+import skyline from '../../../assets/images/mumbai-skyline-dusk.jpg';
 import styles from './PageHero.module.css';
 
 export interface Crumb {
@@ -24,7 +25,14 @@ interface PageHeroProps {
 export function PageHero({ eyebrow, title, lead, crumbs, children }: PageHeroProps) {
   return (
     <section className={styles.hero}>
-      <Container>
+      {/*
+        * A small Mumbai banner, shared by every inner page. Decorative, so the alt text is
+        * empty: the city is already named in the copy and in the page title. It sits to
+        * the right of the text and is dropped entirely on narrow screens, where the copy
+        * runs full width and an image behind it would only fight the headline.
+        */}
+      <img className={styles.art} src={skyline} alt="" width={1600} height={900} fetchPriority="high" decoding="async" />
+      <Container className={styles.inner}>
         {crumbs && crumbs.length > 0 && (
           <nav aria-label="Breadcrumb" className={styles.crumbs}>
             <ol>

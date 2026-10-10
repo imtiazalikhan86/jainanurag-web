@@ -1,7 +1,51 @@
 .hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   background: linear-gradient(160deg, var(--ink-900) 0%, var(--ink-800) 55%, var(--ink-700) 100%);
   color: var(--text-on-dark);
   padding-block: clamp(2.5rem, 1.5rem + 4.5vw, 4.5rem);
+}
+
+/* Full bleed across the band. */
+.art {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Favours the skyline over the empty sky as the band crops vertically. */
+  object-position: center 62%;
+}
+
+/*
+ * Two fades rather than one: horizontal so the copy sits on solid navy, and vertical so
+ * the photograph meets the top and bottom edges of the band instead of being cut off.
+ * The stops are set so the headline keeps well clear of the 4.5:1 floor.
+ */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg,
+      rgba(1, 18, 47, 0.95) 0%,
+      rgba(1, 18, 47, 0.9) 42%,
+      rgba(1, 18, 47, 0.78) 62%,
+      rgba(1, 18, 47, 0.62) 82%,
+      rgba(1, 18, 47, 0.52) 100%),
+    linear-gradient(180deg,
+      rgba(1, 18, 47, 0.5) 0%,
+      rgba(1, 18, 47, 0.12) 45%,
+      rgba(1, 18, 47, 0.55) 100%);
+  pointer-events: none;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
 }
 
 .crumbs {
@@ -57,6 +101,24 @@
   flex-wrap: wrap;
   gap: var(--sp-3);
   margin-top: var(--sp-6);
+}
+
+@media (max-width: 900px) {
+  /*
+   * The copy runs full width here and sits right across the photograph, so the overlay
+   * has to carry more. The skyline stays — it is the point of the band — just quieter.
+   */
+  .hero::before {
+    background:
+      linear-gradient(90deg,
+        rgba(1, 18, 47, 0.94) 0%,
+        rgba(1, 18, 47, 0.9) 60%,
+        rgba(1, 18, 47, 0.86) 100%),
+      linear-gradient(180deg,
+        rgba(1, 18, 47, 0.45) 0%,
+        rgba(1, 18, 47, 0.15) 45%,
+        rgba(1, 18, 47, 0.5) 100%);
+  }
 }
 
 @media (max-width: 480px) {

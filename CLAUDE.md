@@ -121,6 +121,20 @@ has to be *read* on a light background uses `--accent-700`. Anything sitting on 
 `--accent-500`. Gold fills take **navy** text, never white: white on `--accent-600` is
 2.5:1.
 
+### Inner-page banner
+
+Every page except the homepage opens on `components/ui/PageHero`, which carries a full
+bleed photograph of the South Mumbai skyline at dusk
+(`src/assets/images/mumbai-skyline-dusk.jpg`). It is decorative — empty `alt`, the city is
+already named in the copy — and it is the LCP element on those pages, so it loads eagerly
+at high priority rather than lazily.
+
+Two overlays sit on it: a horizontal fade so the copy keeps solid navy, and a vertical one
+so the photograph meets the top and bottom edges instead of being cut off. Below 900px the
+copy runs the full width and sits right across the image, so the overlay strengthens rather
+than the image disappearing. Verified: every text run measures 7.85:1 or better against the
+photograph, at widths from 375 to 2560.
+
 ### Logo
 
 `src/assets/images/logo-jainanurag.png` is the supplied lockup, cropped to its content plus
@@ -356,6 +370,12 @@ and a production build inlines the URL as a string.
   paints a stale frame first. The fix is to adjust state during render against a tracked
   previous value (`useMediaQuery`, `PrimaryNav`, `MobileMenu` all do this), which also
   catches changes no click handler would see, such as the browser back button.
+- **Measuring text contrast against a block element's box measures empty space too.** A
+  breadcrumb or eyebrow spans the full container while its glyphs sit at the left, so a
+  naive probe reports the brightest pixel under an area with no text on it and invents a
+  failure. Measure the glyph runs with `Range.getClientRects()`, and skip text that sits on
+  a button painting its own background — otherwise hiding the button exposes whatever is
+  behind it and reports 1:1.
 - **A hover pause is only as good as its target.** Scoped to a hero-sized element, "pause
   while the pointer is here" becomes "never advance", because a pointer resting anywhere on
   the page satisfies it. Scope a pause to the controls, not the content.
