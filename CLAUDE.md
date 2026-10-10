@@ -129,8 +129,12 @@ bleed photograph of the South Mumbai skyline at dusk
 already named in the copy — and it is the LCP element on those pages, so it loads eagerly
 at high priority rather than lazily.
 
-It is a **page header strip, not a second hero**: full width, deliberately short — roughly
-265-330px at desktop depending on whether the page carries a button.
+It is a **page header strip, not a second hero**: full width and deliberately short, with
+a `min-height` floor of `clamp(250px, 22vw, 340px)` and its content vertically centred.
+A floor rather than a fixed height — pages carry different amounts of copy, so without one
+the strip changed depth from page to page, which reads as sloppy when moving between them;
+with a fixed height a long headline would clip instead. At 1440 that pulls most pages onto
+an identical 317px and narrows the spread across the ten banner pages from 271px to 59px.
 
 The photograph is graded, not used as shot. The original was hazy: only 205 of 256 levels
 used, median luma 153, mean saturation 0.21 — and darkening haze gives mud, which is
