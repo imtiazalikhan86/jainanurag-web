@@ -286,27 +286,10 @@ It once paused on hover anywhere in the banner's container, which is the whole h
 of the viewport — so a pointer merely resting on the page stopped the slider indefinitely
 and it looked frozen. A background banner does not need to hold still for a reader.
 
-**Slide 3 is composed, not photographed.** The source was a studio headshot on a light
-grey backdrop; at banner size that meant a 2.5x upscale, a crop through the face and a grey
-field fighting the navy. The backdrop is keyed out and the figure set on the site's own
-navy, right of centre where the copy never reaches, with 150px of headroom above so a hero
-band that crops vertically never cuts through his head.
-
-**The key is asymmetric, and that is the whole trick.** The two things that have to be
-separated sit on opposite sides of the backdrop value: the studio drop shadow around the
-subject is *darker* than the backdrop (207 against 220) and must go, or it rides onto the
-navy as a grey halo round the head; the shirt's blown highlights are *brighter* (248) and
-must stay. No single symmetric tolerance does both — a loose one ate the shirt, a tight one
-left the shadow. Darker pixels get a tolerance of 26, brighter ones 8.
-
-Keying a near-neutral subject off a near-neutral backdrop needs care. The backdrop here is
-exactly `rgb(220,221,226)` with zero variance and the shirt's blown highlights sit 28 away,
-so the flood fill uses a tight tolerance of 10, not 26 — at 26 it ate the shirt, which was
-invisible until the cut-out was viewed against something other than white. Even at 10 the
-backdrop tone recurs along the bright fabric folds, so thin tendrils ran inward and left
-navy streaks on the shoulder; a morphological opening (erode 4, re-grow from the border,
-dilate 4) snaps anything narrower than the structuring element and leaves the real backdrop
-untouched.
+**Slide 3 reuses the inner-page skyline.** The hero is far taller than that band, so the
+crop lands somewhere quite different — sky and towers here, a thin strip of rooftops there
+— but it is still one photograph doing two jobs. Replace it with a third distinct Mumbai
+shot when the client supplies one; it is one line in `SLIDES`.
 
 **It takes any number of slides.** Nothing assumes two: the advance wraps on
 `slides.length`, the dots are generated per slide and announce "n of m", and the index is
@@ -392,14 +375,12 @@ and a production build inlines the URL as a string.
   paints a stale frame first. The fix is to adjust state during render against a tracked
   previous value (`useMediaQuery`, `PrimaryNav`, `MobileMenu` all do this), which also
   catches changes no click handler would see, such as the browser back button.
-- **A halo round a cut-out subject is usually the original's drop shadow, not bad
-  anti-aliasing.** Studio portraits carry a soft shadow on the backdrop; key only the exact
-  backdrop value and that shadow survives as a grey ring on whatever you composite onto.
-  Check whether the fringe is darker or lighter than the backdrop before reaching for a
-  despill — here despill alone changed nothing, because the problem was 15px wide.
-- **Check a cut-out against something other than white.** A matte that had eaten the
-  subject's white shirt looked perfect over a white page, because transparent and white are
-  indistinguishable there. Composite over a checkerboard or the destination colour.
+- **Keying a subject off a studio backdrop** (kept here because another headshot may well
+  arrive): check a cut-out against the destination colour, never white — a matte that had
+  eaten the subject's white shirt looked perfect on a white page. A wide halo is usually
+  the original's drop shadow rather than anti-aliasing, and since that shadow is *darker*
+  than the backdrop while blown highlights are *brighter*, the tolerance has to be
+  asymmetric or it will always sacrifice one for the other.
 - **Heading level should not decide type size.** The hero headline moved h1 → h2 → h1, and
   because its size came from the global `h1`/`h2` rules it resized each time. `.title` now
   pins its own `font-size`, so the semantic choice and the design are independent.

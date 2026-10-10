@@ -5,7 +5,7 @@ import { Icon } from '../../../../components/common/Icon/Icon';
 import { ImageSlider, type Slide } from '../../../../components/ui/ImageSlider/ImageSlider';
 import heroImage from '../../../../assets/images/hero-mumbai-advisory.jpg';
 import networkImage from '../../../../assets/images/global-india-network.jpg';
-import founderImage from '../../../../assets/images/founder-advisory.jpg';
+import skylineImage from '../../../../assets/images/mumbai-skyline-dusk.jpg';
 import styles from './Hero.module.css';
 
 const HIGHLIGHTS = ['Business setup', 'GST & taxation', 'Accounting', 'Ongoing compliance'];
@@ -22,12 +22,12 @@ const SLIDES: Slide[] = [
   { src: heroImage, alt: '', width: 1600, height: 775, objectPosition: '78% center' },
   { src: networkImage, alt: '', width: 1376, height: 768, objectPosition: '62% center' },
   /*
-   * Composed rather than photographed: the source was a studio headshot on a light grey
-   * backdrop, which at banner size would have meant a 2.5x upscale, a crop through the
-   * face and a grey field fighting the navy. The backdrop is keyed out and the figure set
-   * on the site's own navy, right of centre where the copy never reaches.
+   * The same South Mumbai skyline the inner pages carry. The hero is far taller than that
+   * band, so the crop lands somewhere quite different — sky and towers here, a thin strip
+   * of rooftops there — but it is still one photograph doing two jobs. Worth replacing
+   * with a third distinct Mumbai shot when the client supplies one.
    */
-  { src: founderImage, alt: '', width: 1600, height: 900, objectPosition: '72% 28%' },
+  { src: skylineImage, alt: '', width: 1600, height: 900, objectPosition: 'center 58%' },
 ];
 
 /**
