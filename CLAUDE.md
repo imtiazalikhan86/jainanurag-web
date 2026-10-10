@@ -286,6 +286,21 @@ It once paused on hover anywhere in the banner's container, which is the whole h
 of the viewport — so a pointer merely resting on the page stopped the slider indefinitely
 and it looked frozen. A background banner does not need to hold still for a reader.
 
+**Slide 3 is composed, not photographed.** The source was a studio headshot on a light
+grey backdrop; at banner size that meant a 2.5x upscale, a crop through the face and a grey
+field fighting the navy. The backdrop is keyed out and the figure set on the site's own
+navy, right of centre where the copy never reaches, with 150px of headroom above so a hero
+band that crops vertically never cuts through his head.
+
+Keying a near-neutral subject off a near-neutral backdrop needs care. The backdrop here is
+exactly `rgb(220,221,226)` with zero variance and the shirt's blown highlights sit 28 away,
+so the flood fill uses a tight tolerance of 10, not 26 — at 26 it ate the shirt, which was
+invisible until the cut-out was viewed against something other than white. Even at 10 the
+backdrop tone recurs along the bright fabric folds, so thin tendrils ran inward and left
+navy streaks on the shoulder; a morphological opening (erode 4, re-grow from the border,
+dilate 4) snaps anything narrower than the structuring element and leaves the real backdrop
+untouched.
+
 **It takes any number of slides.** Nothing assumes two: the advance wraps on
 `slides.length`, the dots are generated per slide and announce "n of m", and the index is
 part of each React key so the same artwork can appear twice with a different crop. Adding a
@@ -370,6 +385,12 @@ and a production build inlines the URL as a string.
   paints a stale frame first. The fix is to adjust state during render against a tracked
   previous value (`useMediaQuery`, `PrimaryNav`, `MobileMenu` all do this), which also
   catches changes no click handler would see, such as the browser back button.
+- **Check a cut-out against something other than white.** A matte that had eaten the
+  subject's white shirt looked perfect over a white page, because transparent and white are
+  indistinguishable there. Composite over a checkerboard or the destination colour.
+- **Heading level should not decide type size.** The hero headline moved h1 → h2 → h1, and
+  because its size came from the global `h1`/`h2` rules it resized each time. `.title` now
+  pins its own `font-size`, so the semantic choice and the design are independent.
 - **Measuring text contrast against a block element's box measures empty space too.** A
   breadcrumb or eyebrow spans the full container while its glyphs sit at the left, so a
   naive probe reports the brightest pixel under an area with no text on it and invents a
