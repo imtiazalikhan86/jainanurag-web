@@ -292,6 +292,13 @@ field fighting the navy. The backdrop is keyed out and the figure set on the sit
 navy, right of centre where the copy never reaches, with 150px of headroom above so a hero
 band that crops vertically never cuts through his head.
 
+**The key is asymmetric, and that is the whole trick.** The two things that have to be
+separated sit on opposite sides of the backdrop value: the studio drop shadow around the
+subject is *darker* than the backdrop (207 against 220) and must go, or it rides onto the
+navy as a grey halo round the head; the shirt's blown highlights are *brighter* (248) and
+must stay. No single symmetric tolerance does both — a loose one ate the shirt, a tight one
+left the shadow. Darker pixels get a tolerance of 26, brighter ones 8.
+
 Keying a near-neutral subject off a near-neutral backdrop needs care. The backdrop here is
 exactly `rgb(220,221,226)` with zero variance and the shirt's blown highlights sit 28 away,
 so the flood fill uses a tight tolerance of 10, not 26 — at 26 it ate the shirt, which was
@@ -385,6 +392,11 @@ and a production build inlines the URL as a string.
   paints a stale frame first. The fix is to adjust state during render against a tracked
   previous value (`useMediaQuery`, `PrimaryNav`, `MobileMenu` all do this), which also
   catches changes no click handler would see, such as the browser back button.
+- **A halo round a cut-out subject is usually the original's drop shadow, not bad
+  anti-aliasing.** Studio portraits carry a soft shadow on the backdrop; key only the exact
+  backdrop value and that shadow survives as a grey ring on whatever you composite onto.
+  Check whether the fringe is darker or lighter than the backdrop before reaching for a
+  despill — here despill alone changed nothing, because the problem was 15px wide.
 - **Check a cut-out against something other than white.** A matte that had eaten the
   subject's white shirt looked perfect over a white page, because transparent and white are
   indistinguishable there. Composite over a checkerboard or the destination colour.
