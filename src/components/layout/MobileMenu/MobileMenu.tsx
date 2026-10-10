@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Link, useLocation } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
 import { Icon } from '../../common/Icon/Icon';
+import logo from '../../../assets/images/logo-jainanurag.png';
 import { useLockBodyScroll } from '../../../hooks/useLockBodyScroll';
 import { SITE } from '../../../constants/site';
 import { PRIMARY_NAV } from '../../../constants/navigation';
@@ -68,7 +69,8 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
         inert={!open}
       >
         <div className={styles.head}>
-          <span className={styles.brand}>{SITE.shortName}</span>
+          {/* The lockup carries its own navy field, so it needs no plate of its own. */}
+          <img className={styles.logo} src={logo} alt={SITE.name} width={298} height={119} />
           <button ref={closeRef} type="button" className={styles.close} onClick={onClose} aria-label="Close menu">
             <Icon name="close" size={22} />
           </button>

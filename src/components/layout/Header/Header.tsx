@@ -4,6 +4,7 @@ import { Button } from '../../common/Button/Button';
 import { Container } from '../../common/Container/Container';
 import { Icon } from '../../common/Icon/Icon';
 import { MobileMenu } from '../MobileMenu/MobileMenu';
+import logo from '../../../assets/images/logo-jainanurag.png';
 import { PrimaryNav } from '../PrimaryNav/PrimaryNav';
 import { useScrolled } from '../../../hooks/useScrolled';
 import { SITE } from '../../../constants/site';
@@ -16,12 +17,14 @@ export function Header() {
   return (
     <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
       <Container className={styles.inner}>
+        {/*
+          * The supplied logo is a navy lockup with the wordmark and "Chartered
+          * Accountants" already set, so it replaces the old lettermark-plus-text
+          * construction entirely. Its field is the same navy as the header, which is why
+          * the header is navy: the logo sits in it with no visible plate around it.
+          */}
         <Link to="/" className={styles.brand} aria-label={`${SITE.name}, home`}>
-          <span className={styles.mark} aria-hidden="true">J&amp;A</span>
-          <span className={styles.brandText}>
-            <strong>{SITE.name}</strong>
-            <small>{SITE.descriptor}</small>
-          </span>
+          <img className={styles.logo} src={logo} alt={SITE.name} width={298} height={119} />
         </Link>
 
         <div className={styles.nav}>

@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import logo from '../../../assets/images/logo-jainanurag.png';
 import { Container } from '../../common/Container/Container';
 import { Icon } from '../../common/Icon/Icon';
 import { FOOTER_LINKS, SITE } from '../../../constants/site';
@@ -13,9 +14,8 @@ export function Footer() {
       <Container>
         <div className={styles.grid}>
           <div className={styles.brandCol}>
-            <span className={styles.mark} aria-hidden="true">J&amp;A</span>
-            <p className={styles.name}>{SITE.name}</p>
-            <p className={styles.descriptor}>{SITE.descriptor}</p>
+            {/* The footer is navy, so the lockup sits on its own field with no plate. */}
+            <img className={styles.logo} src={logo} alt={SITE.name} width={298} height={119} />
             <p className={styles.blurb}>{SITE.tagline}</p>
           </div>
 

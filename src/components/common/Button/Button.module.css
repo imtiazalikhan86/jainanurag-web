@@ -34,14 +34,18 @@
   white-space: nowrap;
 }
 
+/*
+ * Navy on gold, not white on gold: white would land at 2.5:1 against this gold and fail
+ * outright. Navy reads at 6.9:1 and is the pairing the logo itself uses.
+ */
 .primary {
   background: var(--accent-600);
-  color: #fff;
-  box-shadow: 0 6px 18px rgba(14, 143, 126, 0.22);
+  color: var(--ink-900);
+  box-shadow: 0 6px 18px rgba(1, 24, 61, 0.18);
 }
 .primary:hover {
-  background: var(--accent-700);
-  color: #fff;
+  background: var(--accent-500);
+  color: var(--ink-900);
   transform: translateY(-1px);
 }
 

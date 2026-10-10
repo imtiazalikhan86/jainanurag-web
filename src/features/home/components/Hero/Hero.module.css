@@ -3,7 +3,7 @@
   isolation: isolate;
   display: flex;
   flex-direction: column;
-  background: linear-gradient(160deg, var(--ink-900) 0%, var(--ink-800) 48%, #0d2a4a 100%);
+  background: linear-gradient(160deg, var(--ink-900) 0%, var(--ink-800) 48%, var(--ink-700) 100%);
   color: var(--text-on-dark);
   overflow: hidden;
   padding-block: clamp(3rem, 1.75rem + 5.5vw, 5.5rem);
@@ -45,13 +45,20 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+  /*
+   * These stops are set by measurement, not by eye. The accent word in the headline is
+   * gold, which is far less forgiving than the white around it: against the brightest part
+   * of the skyline it measured 2.9:1, below the 3:1 floor for large text, while the white
+   * beside it sat at a comfortable 6:1. The fade now holds above 0.84 across the full
+   * width the headline can reach before it opens up over the photograph.
+   */
   background: linear-gradient(
     90deg,
-    rgba(6, 19, 36, 0.96) 0%,
-    rgba(6, 19, 36, 0.9) 30%,
-    rgba(6, 19, 36, 0.66) 48%,
-    rgba(6, 19, 36, 0.32) 68%,
-    rgba(6, 19, 36, 0.14) 100%
+    rgba(1, 18, 47, 0.97) 0%,
+    rgba(1, 18, 47, 0.94) 34%,
+    rgba(1, 18, 47, 0.86) 55%,
+    rgba(1, 18, 47, 0.45) 72%,
+    rgba(1, 18, 47, 0.12) 100%
   );
   pointer-events: none;
 }
@@ -120,10 +127,10 @@
   .hero::after {
     background: linear-gradient(
       90deg,
-      rgba(6, 19, 36, 0.97) 0%,
-      rgba(6, 19, 36, 0.93) 42%,
-      rgba(6, 19, 36, 0.72) 62%,
-      rgba(6, 19, 36, 0.4) 100%
+      rgba(1, 18, 47, 0.97) 0%,
+      rgba(1, 18, 47, 0.95) 45%,
+      rgba(1, 18, 47, 0.86) 66%,
+      rgba(1, 18, 47, 0.45) 100%
     );
   }
 }

@@ -27,6 +27,7 @@
   height: 12px;
 }
 
+/* The header is navy, so the nav reads light-on-dark and picks up gold on interaction. */
 .trigger {
   display: inline-flex;
   align-items: center;
@@ -36,14 +37,15 @@
   border-radius: var(--radius-sm);
   font-size: var(--fs-sm);
   font-weight: 500;
-  color: var(--text-body);
+  letter-spacing: 0.01em;
+  color: #dbe4f0;
   transition: color var(--transition), background var(--transition);
 }
 
-.trigger:hover { color: var(--ink-800); background: var(--paper-tint); }
+.trigger:hover { color: var(--accent-500); background: rgba(217, 173, 93, 0.1); }
 
 .trigger[aria-current='page'] {
-  color: var(--accent-700);
+  color: var(--accent-500);
   font-weight: 600;
 }
 
@@ -53,7 +55,7 @@
 }
 
 .itemOpen .chevron { transform: rotate(180deg); }
-.itemOpen .trigger { color: var(--ink-800); background: var(--paper-tint); }
+.itemOpen .trigger { color: var(--accent-500); background: rgba(217, 173, 93, 0.1); }
 
 /*
  * The panels hang off the header, centred under it rather than under their trigger.
@@ -71,7 +73,7 @@
   background: var(--paper);
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  box-shadow: 0 24px 60px rgba(6, 19, 36, 0.16);
+  box-shadow: 0 24px 60px rgba(1, 18, 47, 0.18);
   padding: var(--sp-6);
 
   opacity: 0;

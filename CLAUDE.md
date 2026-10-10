@@ -100,13 +100,38 @@ engagement process, and plain language about what the firm does.
 
 ## Design System
 
+The palette is **sampled from the logo**, not approximated: its field is `#01183d` and its
+monogram sits around `#d9ad5d`. Navy and gold are the identity; nothing else competes.
+
 | Token | Value | Role |
 |---|---|---|
-| `--ink-800` | `#0b1f3a` | Primary navy, dark bands |
-| `--accent-600` | `#0e8f7e` | Emerald accent, primary CTA |
+| `--ink-900` | `#01122f` | Deepest navy, hero and dark bands |
+| `--ink-800` | `#01183d` | **The logo navy.** Header, footer, primary brand |
+| `--accent-700` | `#96691a` | Gold for text and links **on light** (4.85:1) |
+| `--accent-600` | `#c89b3c` | Gold fills, rules, icon plates |
+| `--accent-500` | `#d9ad5d` | The logo gold, **on navy** (8.41:1) |
+| `--accent-100` | `#f7eedd` | Tinted plates behind icons |
 | `--paper-warm` | `#faf8f4` | Warm off-white section tone |
 | `--font-heading` | Plus Jakarta Sans | Headings |
 | `--font-body` | Inter | Body |
+
+**Gold needs two working tones and they are not interchangeable.** The logo gold is
+luminous on navy and all but illegible on white — 2.08:1, a clear failure. Anything that
+has to be *read* on a light background uses `--accent-700`. Anything sitting on navy uses
+`--accent-500`. Gold fills take **navy** text, never white: white on `--accent-600` is
+2.5:1.
+
+### Logo
+
+`src/assets/images/logo-jainanurag.png` is the supplied lockup, cropped to its content plus
+an even 10px and converted from JPEG so the small type stays crisp. It carries its own navy
+field, which is why **the header and footer are `--ink-800` exactly** — a near-match makes
+the lockup read as a lighter rectangle floating on the band. If a surface behind the logo
+changes colour, it needs a plate or a transparent asset from the client.
+
+The hero headline caps at 3.25rem (52px) and inner-page headlines at 2.75rem. They were
+larger; at 62px the hero shouted, and a firm selling judgement reads better set a little
+quieter than a consumer brand would.
 
 Buttons come in two sizes on a standard scale: `md` is about 42px tall and `lg` about 48px.
 `lg` is for a single primary action in a hero, not for every call to action — the page used

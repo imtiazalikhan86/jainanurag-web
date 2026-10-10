@@ -1,5 +1,9 @@
+/*
+ * Exactly the logo's own navy. A near-match is worse than no match: the lockup's field
+ * showed as a lighter rectangle floating on the footer.
+ */
 .footer {
-  background: var(--ink-900);
+  background: var(--ink-800);
   color: var(--text-on-dark-muted);
   padding-block: var(--sp-9) var(--sp-6);
   font-size: var(--fs-sm);
@@ -12,17 +16,10 @@
   padding-bottom: var(--sp-8);
 }
 
-.mark {
-  display: grid;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-md);
-  background: var(--accent-600);
-  color: #fff;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.82rem;
+.logo {
+  display: block;
+  height: 64px;
+  width: auto;
   margin-bottom: var(--sp-4);
 }
 

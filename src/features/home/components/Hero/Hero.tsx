@@ -47,14 +47,24 @@ export function Hero() {
 
       <Container className={styles.inner}>
         <div className={styles.copy}>
+          {/*
+            * The banner headline is an h2 by design. A document still needs exactly one
+            * h1, though — without it the homepage has no top-level heading for search
+            * engines or for a screen reader's heading navigation — so the page's real
+            * title sits here, read aloud but not drawn.
+            */}
+          <h1 className="visually-hidden">
+            Jainanurag &amp; Associates &mdash; Chartered Accountants in Mumbai, India
+          </h1>
+
           <p className={`${styles.eyebrow} rise`}>
             <span className={styles.dot} aria-hidden="true" />
             Chartered Accountants &middot; Mumbai, India
           </p>
 
-          <h1 id="hero-title" className={`${styles.title} rise rise-1`}>
+          <h2 id="hero-title" className={`${styles.title} rise rise-1`}>
             Your trusted partner for business, tax&nbsp;&amp; compliance in <span className={styles.accent}>India</span>
-          </h1>
+          </h2>
 
           <p className={`${styles.lead} rise rise-2`}>
             From business setup and GST registration to taxation, accounting and ongoing compliance,

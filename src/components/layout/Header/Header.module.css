@@ -1,18 +1,22 @@
+/*
+ * Navy, to match the logo's own field exactly. The logo is supplied as a navy lockup, so
+ * on a white header it would read as a badge stuck onto the page; on navy it simply sits
+ * there. It also carries the identity further up the page than an accent ever could.
+ */
 .header {
   position: sticky;
   top: 0;
   z-index: 80;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(10px);
+  background: var(--ink-800);
   border-bottom: 1px solid transparent;
   transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
 }
 
-/* Only once scrolled does the header separate itself from the hero. */
+/* Scrolled, it deepens and takes an edge rather than changing colour entirely. */
 .scrolled {
-  border-bottom-color: var(--line);
-  box-shadow: var(--shadow-sm);
-  background: rgba(255, 255, 255, 0.97);
+  background: var(--ink-900);
+  border-bottom-color: rgba(217, 173, 93, 0.22);
+  box-shadow: 0 10px 30px rgba(1, 18, 47, 0.35);
 }
 
 .inner {
@@ -28,41 +32,19 @@
 .brand {
   display: inline-flex;
   align-items: center;
-  gap: var(--sp-3);
-  color: var(--ink-800);
   margin-right: auto;
   flex: none;
 }
 
-.mark {
-  display: grid;
-  place-items: center;
-  width: 42px;
-  height: 42px;
-  flex: none;
-  border-radius: var(--radius-md);
-  background: var(--ink-800);
-  color: #fff;
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 0.82rem;
-  letter-spacing: -0.02em;
-}
-
-.brandText { display: grid; line-height: 1.2; }
-.brandText strong {
-  font-family: var(--font-heading);
-  font-size: 1rem;
-  color: var(--ink-800);
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-}
-.brandText small {
-  font-size: 0.7rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  white-space: nowrap;
+/*
+ * The supplied file carried about 24px of navy padding on every side, which at header
+ * size shrank the wordmark to the point of being unreadable. It is cropped to the lockup
+ * plus an even 10px, and stored as PNG so the small type stays crisp.
+ */
+.logo {
+  display: block;
+  height: 52px;
+  width: auto;
 }
 
 /*
@@ -79,17 +61,19 @@
   place-items: center;
   width: 44px;
   height: 44px;
-  border: 1px solid var(--line);
+  border: 1px solid rgba(217, 173, 93, 0.35);
   border-radius: var(--radius-sm);
-  background: var(--paper);
-  color: var(--ink-800);
+  background: transparent;
+  color: var(--accent-500);
+  transition: background var(--transition), border-color var(--transition);
 }
+.burger:hover { background: rgba(217, 173, 93, 0.12); border-color: var(--accent-500); }
 
 /*
  * Shedding order as the viewport narrows, most expendable first:
  *   < 1240  the full nav, replaced by the drawer
- *   <  560  the CTA button and the "Chartered Accountants" descriptor
- *   <  380  the wordmark and logo mark shrink
+ *   <  560  the CTA button
+ *   <  380  the logo steps down again
  *
  * The brand block, the seven-item nav and the CTA measure about 1150px together, and the
  * container caps at 1200px, so 1240 is where the row genuinely stops fitting. Below it
@@ -102,13 +86,10 @@
 
 @media (max-width: 560px) {
   .cta { display: none; }
-  .brandText small { display: none; }
   .inner { gap: var(--sp-3); }
-  .brandText strong { font-size: 0.95rem; }
+  .logo { height: 44px; }
 }
 
 @media (max-width: 380px) {
-  /* At the narrowest supported width the wordmark alone carries the brand. */
-  .brandText strong { font-size: 0.88rem; }
-  .mark { width: 38px; height: 38px; font-size: 0.75rem; }
+  .logo { height: 38px; }
 }
