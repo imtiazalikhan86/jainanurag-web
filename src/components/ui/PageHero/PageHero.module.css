@@ -17,16 +17,28 @@
   padding-block: clamp(1.5rem, 1rem + 1.6vw, 2.4rem);
 }
 
-/* Full bleed across the band. */
+/*
+ * Anchored by height, not stretched across the band.
+ *
+ * The artwork is nearly square and the band is five times wider than it is tall, so
+ * `width: 100%` with `object-fit: cover` cropped it brutally — it cut the tops off the
+ * people's heads, and did so differently at every viewport width. Sizing by height and
+ * letting the width follow means the frame is always shown whole, whatever the band does.
+ *
+ * The mask is what stops it reading as a rectangle pasted onto the navy: the left edge
+ * dissolves into the band instead of ending on a line.
+ */
 .art {
   position: absolute;
-  inset: 0;
+  inset-block: 0;
+  right: 0;
   z-index: 0;
-  width: 100%;
   height: 100%;
+  width: auto;
+  max-width: 48%;
   object-fit: cover;
-  /* Keeps the desk and documents in frame as the band crops vertically. */
-  object-position: center 58%;
+  object-position: center top;
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.55) 22%, #000 58%);
 }
 
 /*
@@ -41,11 +53,11 @@
   z-index: 1;
   background:
     linear-gradient(90deg,
-      rgba(1, 18, 47, 0.92) 0%,
-      rgba(1, 18, 47, 0.89) 46%,
-      rgba(1, 18, 47, 0.8) 62%,
-      rgba(1, 18, 47, 0.3) 72%,
-      rgba(1, 18, 47, 0.08) 100%),
+      rgba(1, 18, 47, 0.8) 0%,
+      rgba(1, 18, 47, 0.74) 46%,
+      rgba(1, 18, 47, 0.5) 64%,
+      rgba(1, 18, 47, 0.2) 76%,
+      rgba(1, 18, 47, 0.06) 100%),
     linear-gradient(180deg,
       rgba(1, 18, 47, 0.22) 0%,
       rgba(1, 18, 47, 0.02) 45%,

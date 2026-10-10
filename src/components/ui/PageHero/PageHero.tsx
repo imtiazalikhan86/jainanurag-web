@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { Container } from '../../common/Container/Container';
 import { Icon } from '../../common/Icon/Icon';
-import bannerArt from '../../../assets/images/advisory-desk.jpg';
+import bannerArt from '../../../assets/images/advisory-team.jpg';
 import styles from './PageHero.module.css';
 
 export interface Crumb {
@@ -30,7 +30,7 @@ export function PageHero({ eyebrow, title, lead, crumbs, children }: PageHeroPro
         * skyline here read as a property developer, which is the wrong business. Decorative,
         * so the alt text is empty: nothing in it is information the copy does not carry.
         */}
-      <img className={styles.art} src={bannerArt} alt="" width={1600} height={388} fetchPriority="high" decoding="async" />
+      <img className={styles.art} src={bannerArt} alt="" width={768} height={620} fetchPriority="high" decoding="async" />
       <Container className={styles.inner}>
         {crumbs && crumbs.length > 0 && (
           <nav aria-label="Breadcrumb" className={styles.crumbs}>

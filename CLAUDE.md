@@ -169,10 +169,16 @@ It shows **the work, not the city**. A skyline there read as a property develope
 the wrong business entirely; the banner is now a crop of the advisory photograph — laptop,
 financial reports, calculator, ledger — which reads as a practice.
 
-The veil over it is shaped to the text rather than washed across the band: the copy never
-reaches past about 62% of the width, so the fade holds until there and then drops away
-quickly. Washing it evenly either hides the picture or fails the text — at 0.5 opacity
-across the copy the lead measured 2.93:1.
+**It is anchored by height, not stretched across the band.** The artwork is nearly square
+(768x620) and the band is five times wider than it is tall, so `width: 100%` with
+`object-fit: cover` cropped it brutally — it cut the tops off the people's heads, and did
+so differently at every viewport width. Sizing by height and letting the width follow shows
+the frame whole at any band size; a `mask-image` dissolves its left edge into the navy so
+it does not read as a rectangle pasted on.
+
+The veil is shaped to the text rather than washed across the band. Washing it evenly either
+hides the picture or fails the copy — at 0.5 opacity across the text the lead measured
+2.93:1.
 
 The homepage hero keeps the graded skyline, which is graded rather than used as shot. The original was hazy: only 205 of 256 levels
 used, median luma 153, mean saturation 0.21 — and darkening haze gives mud, which is
@@ -428,6 +434,10 @@ and a production build inlines the URL as a string.
   paints a stale frame first. The fix is to adjust state during render against a tracked
   previous value (`useMediaQuery`, `PrimaryNav`, `MobileMenu` all do this), which also
   catches changes no click handler would see, such as the browser back button.
+- **`object-fit: cover` on a near-square image in a wide strip will crop the subject out.**
+  It cropped the heads off the people in the banner, differently at every width. When the
+  subject matters, size the image by the dimension the container actually constrains —
+  here height — and let the other follow.
 - **A raw palette token used as a text colour cannot be themed.** `--ink-900` is navy in
   both themes, so every heading painted with it vanished the moment the page went dark.
   33 of them had to be moved to `--text-strong` before a dark theme was even possible.
