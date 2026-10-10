@@ -88,7 +88,7 @@
    * semantic choice and has flip-flopped here; type size should not follow it. This is
    * the size the banner settled on, and it holds whichever tag the headline uses.
    */
-  font-size: var(--fs-h2);
+  font-size: var(--fs-banner);
   color: #fff;
   margin-bottom: var(--sp-5);
   text-wrap: balance;

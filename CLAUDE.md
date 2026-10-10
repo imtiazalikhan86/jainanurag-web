@@ -121,6 +121,35 @@ has to be *read* on a light background uses `--accent-700`. Anything sitting on 
 `--accent-500`. Gold fills take **navy** text, never white: white on `--accent-600` is
 2.5:1.
 
+## Theme
+
+Light and dark, switched by a toggle in the header and the drawer.
+
+`data-theme` on `<html>` is the single source of truth, and it is written by an inline
+script in `index.html` **before the first paint** — anything that runs after React mounts
+is too late, and the page would flash light before going dark. That script also resolves
+the system preference itself, so the stylesheet needs only `[data-theme='dark']` and there
+is no second `prefers-color-scheme` block to drift out of sync. `useTheme` reads the
+attribute back through `useSyncExternalStore`, so no component can disagree with what is
+actually painting the page.
+
+**Only semantic tokens flip.** The brand palette does not move: navy is still navy, gold
+is still gold, which is why the header, footer, hero and banner need no dark-mode rules —
+they were already dark, and it is the page around them that changes. The one brand token
+that must shift is the gold used for *text*: dark enough to read on white (`--accent-700`,
+`#8d6118`), and on a dark surface that same gold disappears, so it becomes the logo's own
+`#d9ad5d`.
+
+This is why `--ink-*` must never be used as a text colour. It is raw palette, it does not
+flip, and anything painted with it is invisible in one theme or the other. Use
+`--text-strong`, `--text-body`, `--text-muted`. The single deliberate exception is the navy
+label on the gold button, because gold does not change between themes.
+
+Contrast is audited in both themes with a DOM walker that compares every text node against
+its effective background: **12 pages, 0 failures, light and dark**. The audit skips
+`aria-hidden` text and anything over a gradient or photograph, since a background walker
+cannot read those — those are measured separately with glyph-level probes.
+
 ### Inner-page banner
 
 Every page except the homepage opens on `components/ui/PageHero`, which carries a full
@@ -136,7 +165,16 @@ the strip changed depth from page to page, which reads as sloppy when moving bet
 with a fixed height a long headline would clip instead. At 1440 that pulls most pages onto
 an identical 317px and narrows the spread across the ten banner pages from 271px to 59px.
 
-The photograph is graded, not used as shot. The original was hazy: only 205 of 256 levels
+It shows **the work, not the city**. A skyline there read as a property developer, which is
+the wrong business entirely; the banner is now a crop of the advisory photograph — laptop,
+financial reports, calculator, ledger — which reads as a practice.
+
+The veil over it is shaped to the text rather than washed across the band: the copy never
+reaches past about 62% of the width, so the fade holds until there and then drops away
+quickly. Washing it evenly either hides the picture or fails the text — at 0.5 opacity
+across the copy the lead measured 2.93:1.
+
+The homepage hero keeps the graded skyline, which is graded rather than used as shot. The original was hazy: only 205 of 256 levels
 used, median luma 153, mean saturation 0.21 — and darkening haze gives mud, which is
 exactly how it first looked. A percentile stretch, an S-curve and a 1.5x saturation lift
 bring it to 248 levels and 0.42 saturation, so the towers read as silhouettes against a
@@ -390,6 +428,11 @@ and a production build inlines the URL as a string.
   paints a stale frame first. The fix is to adjust state during render against a tracked
   previous value (`useMediaQuery`, `PrimaryNav`, `MobileMenu` all do this), which also
   catches changes no click handler would see, such as the browser back button.
+- **A raw palette token used as a text colour cannot be themed.** `--ink-900` is navy in
+  both themes, so every heading painted with it vanished the moment the page went dark.
+  33 of them had to be moved to `--text-strong` before a dark theme was even possible.
+- **Resolve the theme before the first paint**, in an inline synchronous script. Any later
+  and the page paints light, then snaps.
 - **Keying a subject off a studio backdrop** (kept here because another headshot may well
   arrive): check a cut-out against the destination colour, never white — a matte that had
   eaten the subject's white shirt looked perfect on a white page. A wide halo is usually

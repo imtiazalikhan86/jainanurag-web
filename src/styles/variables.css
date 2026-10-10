@@ -21,15 +21,21 @@
    * luminous on navy (8.4:1) and all but illegible on white (2.1:1), so anything that has
    * to be *read* on a light background uses --accent-700, measured at 4.85:1.
    */
-  --accent-700: #96691a;  /* text and links on light backgrounds */
+  --accent-700: #8d6118;  /* text and links on light backgrounds */
   --accent-600: #c89b3c;  /* fills, rules and icon plates */
   --accent-500: #d9ad5d;  /* the logo gold, for use on navy */
   --accent-100: #f7eedd;  /* tinted plates behind icons */
+
+  /* Readable on the tinted chip backgrounds, where --accent-700 lands just under 4.5:1. */
+  --tag-ink: #7a5712;
 
   --gold-500: var(--accent-600);
   --gold-100: var(--accent-100);
 
   /* Neutrals --------------------------------------------------------------- */
+  --page-bg: #ffffff;        /* the page itself, separate from card surfaces */
+  --band-dark: var(--ink-900);   /* the `dark` section tone */
+  --surface-strong: var(--ink-800); /* small inverted chips, e.g. numbered steps */
   --paper: #ffffff;
   --paper-warm: #faf8f4;  /* warm off-white keeps the page from feeling clinical */
   --paper-tint: #f2f6f8;
@@ -43,6 +49,47 @@
   --text-on-dark: #eaf1f8;
   --text-on-dark-muted: #a8bdd4;
 
+  /*
+   * Dark theme ------------------------------------------------------------
+   *
+   * Only semantic tokens are overridden. The brand palette above does not move: navy is
+   * still navy and gold is still gold, which is why the header, footer and hero need no
+   * dark-mode rules of their own — they were already dark, and the page around them is
+   * what changes.
+   *
+   * The one brand token that has to shift is the gold used for text. On white it must be
+   * dark enough to read (#96691a); on a dark surface that same gold disappears, so it
+   * becomes the logo's own #d9ad5d, which measures 8.4:1 against navy.
+   *
+   * `data-theme` is always written by the inline script in index.html, resolving the
+   * system preference itself, so there is no second `prefers-color-scheme` block here to
+   * drift out of sync.
+   */
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+
+  --page-bg: #050f1e;
+  --paper: #0c1a2e;
+  --paper-warm: #091626;
+  --paper-tint: #102338;
+  --band-dark: #0a1930;
+  --surface-strong: #1b3a63;
+  --line: rgba(233, 239, 247, 0.12);
+
+  --text-strong: #e9eff7;
+  --text-body: #b6c5d8;
+  --text-muted: #8ea0b8;
+
+  --accent-700: #d9ad5d;
+  --accent-100: rgba(217, 173, 93, 0.14);
+  --tag-ink: #e4bd77;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 10px rgba(0, 0, 0, 0.35);
+}
+
+:root {
   /* Typography ------------------------------------------------------------- */
   --font-heading: 'Plus Jakarta Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -56,6 +103,12 @@
   /* Inner-page headline: smaller than the homepage display, larger than a section title. */
   --fs-h1: clamp(1.85rem, 1.35rem + 1.9vw, 2.75rem);
   --fs-h2: clamp(1.6rem, 1.2rem + 1.5vw, 2.25rem);
+  /*
+   * Every banner headline, homepage and inner page alike, resolves to this. They were set
+   * from different tokens and drifted — 36px on the homepage against 44px elsewhere — which
+   * is visible the moment you move between pages.
+   */
+  --fs-banner: clamp(1.6rem, 1.2rem + 1.5vw, 2.25rem);
   --fs-h3: clamp(1.15rem, 1.02rem + 0.5vw, 1.4rem);
   --fs-lead: clamp(1rem, 0.94rem + 0.3vw, 1.18rem);
   --fs-body: 1rem;

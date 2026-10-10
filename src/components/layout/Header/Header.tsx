@@ -6,6 +6,7 @@ import { Icon } from '../../common/Icon/Icon';
 import { MobileMenu } from '../MobileMenu/MobileMenu';
 import logo from '../../../assets/images/logo-jainanurag.png';
 import { PrimaryNav } from '../PrimaryNav/PrimaryNav';
+import { ThemeToggle } from '../../ui/ThemeToggle/ThemeToggle';
 import { useScrolled } from '../../../hooks/useScrolled';
 import { SITE } from '../../../constants/site';
 import styles from './Header.module.css';
@@ -37,6 +38,7 @@ export function Header() {
           * overlap the nav. It stays in the drawer, the footer and the closing call to action.
           */}
         <div className={styles.actions}>
+          <ThemeToggle />
           <Button to="/contact" variant="primary" className={styles.cta}>
             Book a Consultation
           </Button>

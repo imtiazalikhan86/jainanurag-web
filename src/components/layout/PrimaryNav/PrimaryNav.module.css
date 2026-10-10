@@ -135,7 +135,7 @@
 
 .megaLink:hover, .megaLink:focus-visible {
   background: var(--paper-tint);
-  color: var(--ink-800);
+  color: var(--text-strong);
 }
 
 .megaIcon {
@@ -197,7 +197,7 @@
   display: block;
   font-size: var(--fs-body);
   font-weight: 600;
-  color: var(--ink-800);
+  color: var(--text-strong);
 }
 
 .panelLink small {

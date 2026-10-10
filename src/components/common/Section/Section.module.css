@@ -8,7 +8,7 @@
 .tint { background: var(--paper-tint); }
 
 .dark {
-  background: var(--ink-900);
+  background: var(--band-dark);
   color: var(--text-on-dark);
 }
 .dark :global(h2),

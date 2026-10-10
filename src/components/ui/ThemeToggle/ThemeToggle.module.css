@@ -1,0 +1,33 @@
+.toggle {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(217, 173, 93, 0.3);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--accent-500);
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.toggle:hover {
+  background: rgba(217, 173, 93, 0.12);
+  border-color: var(--accent-500);
+}
+
+.toggle svg { transition: transform var(--transition); }
+.toggle:hover svg { transform: rotate(12deg); }
+
+/* Inside the drawer the toggle sits on a light surface, not on the navy header. */
+.onLight {
+  border-color: var(--line);
+  color: var(--accent-700);
+}
+.onLight:hover { background: var(--paper-tint); border-color: var(--accent-700); }
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle, .toggle svg { transition: none; }
+  .toggle:hover svg { transform: none; }
+}

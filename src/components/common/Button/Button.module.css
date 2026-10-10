@@ -51,17 +51,17 @@
 
 .secondary {
   background: var(--paper);
-  color: var(--ink-800);
+  color: var(--text-strong);
   border-color: var(--line);
 }
 .secondary:hover {
-  border-color: var(--ink-600);
-  color: var(--ink-800);
+  border-color: var(--text-muted);
+  color: var(--text-strong);
 }
 
 .ghost {
   background: transparent;
-  color: var(--ink-800);
+  color: var(--text-strong);
   padding-inline: 0;
 }
 .ghost:hover { color: var(--accent-700); }

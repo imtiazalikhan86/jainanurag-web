@@ -1,6 +1,6 @@
 .heading {
   font-size: var(--fs-h2);
-  color: var(--ink-900);
+  color: var(--text-strong);
   margin-bottom: var(--sp-6);
 }
 
@@ -40,7 +40,7 @@
 .routeCard strong {
   font-family: var(--font-heading);
   font-size: var(--fs-h3);
-  color: var(--ink-900);
+  color: var(--text-strong);
   margin-bottom: var(--sp-2);
 }
 
@@ -72,10 +72,10 @@
   font-family: var(--font-heading);
   font-size: var(--fs-sm);
   font-weight: 700;
-  color: var(--accent-600);
+  color: var(--accent-700);
   margin-bottom: var(--sp-2);
 }
-.stageTitle { font-size: var(--fs-h3); color: var(--ink-900); margin-bottom: var(--sp-2); }
+.stageTitle { font-size: var(--fs-h3); color: var(--text-strong); margin-bottom: var(--sp-2); }
 .stageText { font-size: var(--fs-sm); color: var(--text-muted); }
 
 .split {
@@ -96,14 +96,14 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: var(--ink-800);
+  background: var(--surface-strong);
   color: #fff;
   font-family: var(--font-heading);
   font-size: var(--fs-sm);
   font-weight: 700;
 }
 
-.seqTitle { font-size: var(--fs-h3); color: var(--ink-900); margin-bottom: var(--sp-2); }
+.seqTitle { font-size: var(--fs-h3); color: var(--text-strong); margin-bottom: var(--sp-2); }
 .seqText { color: var(--text-muted); max-width: 60ch; }
 
 .aside {
@@ -115,7 +115,7 @@
   border-radius: var(--radius-lg);
 }
 
-.asideTitle { font-size: var(--fs-h3); color: var(--ink-900); margin-bottom: var(--sp-4); }
+.asideTitle { font-size: var(--fs-h3); color: var(--text-strong); margin-bottom: var(--sp-4); }
 .asideList { display: grid; gap: var(--sp-3); margin-bottom: var(--sp-5); }
 .asideList li { display: flex; gap: var(--sp-2); font-size: var(--fs-sm); color: var(--text-body); }
 .asideList svg { color: var(--accent-600); flex: none; margin-top: 3px; }

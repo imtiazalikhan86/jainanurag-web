@@ -7,7 +7,7 @@
 
 .heading {
   font-size: var(--fs-h2);
-  color: var(--ink-900);
+  color: var(--text-strong);
   margin-bottom: var(--sp-5);
 }
 
@@ -26,7 +26,7 @@
   gap: var(--sp-2);
   font-family: var(--font-heading);
   font-weight: 600;
-  color: var(--ink-900);
+  color: var(--text-strong);
   margin-bottom: var(--sp-2);
 }
 
@@ -44,7 +44,7 @@
 
 .asideTitle {
   font-size: var(--fs-h3);
-  color: var(--ink-900);
+  color: var(--text-strong);
   margin-bottom: var(--sp-4);
 }
 
@@ -82,11 +82,11 @@
   font-family: var(--font-heading);
   font-size: var(--fs-sm);
   font-weight: 700;
-  color: var(--accent-600);
+  color: var(--accent-700);
   margin-bottom: var(--sp-2);
 }
 
-.stepTitle { font-size: var(--fs-h3); color: var(--ink-900); margin-bottom: var(--sp-2); }
+.stepTitle { font-size: var(--fs-h3); color: var(--text-strong); margin-bottom: var(--sp-2); }
 .stepText { font-size: var(--fs-sm); color: var(--text-muted); }
 
 .faqs { display: grid; gap: var(--sp-2); }
@@ -105,7 +105,7 @@
   padding: var(--sp-4);
   font-family: var(--font-heading);
   font-weight: 600;
-  color: var(--ink-900);
+  color: var(--text-strong);
   cursor: pointer;
   list-style: none;
 }
@@ -146,7 +146,7 @@
 .relatedCard strong {
   display: block;
   font-family: var(--font-heading);
-  color: var(--ink-900);
+  color: var(--text-strong);
   margin-bottom: var(--sp-2);
 }
 .relatedCard small { display: block; font-size: var(--fs-sm); color: var(--text-muted); }

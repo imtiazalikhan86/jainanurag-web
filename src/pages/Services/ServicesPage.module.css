@@ -2,7 +2,7 @@
 
 .groupTitle {
   font-size: var(--fs-h2);
-  color: var(--ink-900);
+  color: var(--text-strong);
   margin-bottom: var(--sp-3);
 }
 
@@ -47,7 +47,7 @@
 
 .cardTitle {
   font-size: var(--fs-h3);
-  color: var(--ink-900);
+  color: var(--text-strong);
   margin-bottom: var(--sp-2);
 }
 

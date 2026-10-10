@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from '../../common/Button/Button';
 import { Icon } from '../../common/Icon/Icon';
 import logo from '../../../assets/images/logo-jainanurag.png';
+import { ThemeToggle } from '../../ui/ThemeToggle/ThemeToggle';
 import { useLockBodyScroll } from '../../../hooks/useLockBodyScroll';
 import { SITE } from '../../../constants/site';
 import { PRIMARY_NAV } from '../../../constants/navigation';
@@ -71,9 +72,12 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
         <div className={styles.head}>
           {/* The lockup carries its own navy field, so it needs no plate of its own. */}
           <img className={styles.logo} src={logo} alt={SITE.name} width={298} height={119} />
+          <div className={styles.headActions}>
+            <ThemeToggle className={styles.themeToggle} />
           <button ref={closeRef} type="button" className={styles.close} onClick={onClose} aria-label="Close menu">
             <Icon name="close" size={22} />
           </button>
+          </div>
         </div>
 
         <nav aria-label="Mobile" className={styles.nav}>

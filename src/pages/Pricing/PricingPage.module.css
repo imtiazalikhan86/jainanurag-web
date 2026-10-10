@@ -1,6 +1,6 @@
 .heading {
   font-size: var(--fs-h2);
-  color: var(--ink-900);
+  color: var(--text-strong);
   margin-bottom: var(--sp-6);
 }
 
@@ -30,7 +30,7 @@
   margin-bottom: var(--sp-4);
 }
 
-.modelTitle { font-size: var(--fs-h3); color: var(--ink-900); margin-bottom: var(--sp-2); }
+.modelTitle { font-size: var(--fs-h3); color: var(--text-strong); margin-bottom: var(--sp-2); }
 .modelSummary { color: var(--text-muted); margin-bottom: var(--sp-5); }
 
 .examples { display: grid; gap: var(--sp-2); margin-bottom: var(--sp-5); }
@@ -73,7 +73,7 @@
 .factors dt {
   font-family: var(--font-heading);
   font-weight: 600;
-  color: var(--ink-900);
+  color: var(--text-strong);
   margin-bottom: var(--sp-2);
 }
 .factors dd { color: var(--text-muted); font-size: var(--fs-sm); }
