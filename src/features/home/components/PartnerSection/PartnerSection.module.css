@@ -11,13 +11,13 @@
   box-shadow: var(--shadow-sm);
 }
 
-/* The artwork is drawn on white, so it keeps a white plate in both themes; in dark mode
-   that reads as a mounted print rather than a rectangle pasted onto the card. */
-.media {
-  background: var(--image-plate);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
+/*
+ * The artwork used to carry its own baked-in white canvas, which needed a matching white
+ * plate behind it to avoid a seam — and still showed one the moment the card's own
+ * background moved off pure white. Background-removed instead (flood-filled from the
+ * image border, so the enclosed eye highlight and the pale details within the pattern
+ * were left untouched): the elephant now sits directly on the card, no plate needed.
+ */
 .media img {
   display: block;
   width: 100%;

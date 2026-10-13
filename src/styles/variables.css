@@ -39,14 +39,12 @@
    * Pulled back from pure white, which read as stark/clinical next to the navy and gold
    * brand colours. Each tone keeps its hue (warm stays warm, tint stays cool) and its
    * position relative to the others — paper lightest, then warm, then tint — just a few
-   * points darker across the board. --image-plate is deliberately excluded: it mounts
-   * artwork drawn on true white and does not flip with the theme.
+   * points darker across the board.
    */
   --page-bg: #f7f6f3;        /* the page itself, separate from card surfaces */
   --band-dark: var(--ink-900);   /* the `dark` section tone */
   --surface-strong: var(--ink-800); /* small inverted chips, e.g. numbered steps */
   --paper: #f7f6f3;
-  --image-plate: #ffffff; /* behind artwork drawn on white; does not flip with the theme */
   --paper-warm: #f1ece2;  /* warm off-white keeps the page from feeling clinical */
   --paper-tint: #e8edf0;
   --line: #ddd8ce;
