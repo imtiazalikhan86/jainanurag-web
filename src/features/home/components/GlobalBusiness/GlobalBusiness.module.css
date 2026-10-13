@@ -1,7 +1,32 @@
+/*
+ * A faint dot field reads as a network of markets rather than a flat navy fill — an
+ * abstraction of "connection lines to India" (the client's own suggestion) that does not
+ * risk a literal, inaccurate map. A gold glow sits behind the countries panel so the dark
+ * band has some depth beyond the panel's own border.
+ */
 .section {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+}
+
+/* Element + class so this outranks the plain .dark tone rule regardless of CSS load
+   order, which only sets the solid background-color (see Section.module.css). */
+section.section {
+  background-image: radial-gradient(rgba(234, 241, 248, 0.06) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -10rem;
+  right: -10rem;
+  width: 36rem;
+  height: 36rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(217, 173, 93, 0.14) 0%, transparent 70%);
 }
 
 .inner {
@@ -11,8 +36,10 @@
   align-items: center;
 }
 
-/* Type comes from the global .ruled-label. */
-.eyebrow {
+/* Type comes from the global .ruled-label; translucent gold pill reads correctly on navy.
+   Element + class so it reliably outranks that plain class rule regardless of load order. */
+p.eyebrow {
+  background: rgba(217, 173, 93, 0.16);
   color: var(--accent-500);
   margin-bottom: var(--sp-4);
 }

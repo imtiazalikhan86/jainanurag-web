@@ -11,7 +11,9 @@ interface IndustryCardProps {
 export function IndustryCard({ icon, name, description }: IndustryCardProps) {
   return (
     <li className={`${styles.card} ${description ? '' : styles.compact}`}>
-      <Icon name={icon} size={24} className={styles.icon} />
+      <span className={styles.iconWrap}>
+        <Icon name={icon} size={22} />
+      </span>
       <h3 className={styles.name}>{name}</h3>
       {description && <p className={styles.description}>{description}</p>}
     </li>

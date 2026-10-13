@@ -13,7 +13,7 @@ interface SectionTitleProps {
 
 export function SectionTitle({ eyebrow, title, description, align = 'center', tone = 'light', id }: SectionTitleProps) {
   return (
-    <header className={`${styles.wrap} ${styles[align]} ${tone === 'dark' ? styles.onDark : ''}`}>
+    <header className={`${styles.wrap} ${styles[align]} ${tone === 'dark' ? styles.onDark : ''} reveal`}>
       {eyebrow && <p className={`${styles.eyebrow} ruled-label`}>{eyebrow}</p>}
       <h2 id={id} className={styles.title}>{title}</h2>
       {description && <p className={styles.description}>{description}</p>}

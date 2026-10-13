@@ -1,3 +1,21 @@
+/* A quiet glow behind the "ask" card draws the eye there without a heavier treatment. */
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.section::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  bottom: -8rem;
+  left: -6rem;
+  width: 30rem;
+  height: 30rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 155, 60, 0.12) 0%, transparent 70%);
+}
+
 .inner {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
@@ -38,9 +56,9 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   background: var(--paper);
-  transition: border-color var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
-.faq:hover { border-color: var(--accent-100); box-shadow: var(--shadow-sm); }
+.faq:hover { transform: translateY(-2px); border-color: var(--accent-100); box-shadow: var(--shadow-sm); }
 
 .faq summary {
   display: flex;

@@ -31,3 +31,42 @@
 .rise-1 { animation-delay: 60ms; }
 .rise-2 { animation-delay: 120ms; }
 .rise-3 { animation-delay: 180ms; }
+
+/*
+ * Scroll entrance. `.reveal` marks a single element (a heading, a card) that fades and
+ * rises into place; `.reveal-group` marks a parent whose direct children do the same,
+ * staggered by source order. Both wait on an ancestor's `data-inview="true"`, set once by
+ * `useInViewOnce` the first time that ancestor's `Section` scrolls into view — one
+ * IntersectionObserver per section drives every marked element inside it.
+ *
+ * Markup, not JS, decides what participates: nothing here requires touching the thing
+ * that renders the grid, only the class names on it. `prefers-reduced-motion` is handled
+ * upstream, in `useInViewOnce` (inView is true immediately, nothing to disable here) and
+ * by the blanket transition-duration override in globals.css.
+ */
+.reveal,
+.reveal-group > * {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 600ms cubic-bezier(0.22, 1, 0.36, 1), transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-inview='true'] .reveal,
+[data-inview='true'] .reveal-group > * {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger up to 12 children, which covers every grid on the site; anything past that
+   shares the last delay rather than growing unbounded. */
+.reveal-group > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-group > *:nth-child(2) { transition-delay: 70ms; }
+.reveal-group > *:nth-child(3) { transition-delay: 140ms; }
+.reveal-group > *:nth-child(4) { transition-delay: 210ms; }
+.reveal-group > *:nth-child(5) { transition-delay: 280ms; }
+.reveal-group > *:nth-child(6) { transition-delay: 350ms; }
+.reveal-group > *:nth-child(7) { transition-delay: 420ms; }
+.reveal-group > *:nth-child(8) { transition-delay: 490ms; }
+.reveal-group > *:nth-child(9) { transition-delay: 560ms; }
+.reveal-group > *:nth-child(10) { transition-delay: 630ms; }
+.reveal-group > *:nth-child(11) { transition-delay: 700ms; }
+.reveal-group > *:nth-child(n+12) { transition-delay: 770ms; }

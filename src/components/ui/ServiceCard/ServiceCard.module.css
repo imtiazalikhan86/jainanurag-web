@@ -47,14 +47,15 @@
   letter-spacing: -0.04em;
 }
 
+/* Solid gold, navy icon by default — see FeatureCard for why this replaced a pale wash. */
 .iconWrap {
   display: grid;
   place-items: center;
   width: 52px;
   height: 52px;
   border-radius: var(--radius-md);
-  background: var(--accent-100);
-  color: var(--accent-700);
+  background: var(--accent-600);
+  color: var(--ink-800);
 }
 
 .title {
@@ -118,14 +119,16 @@
 
 .index,
 .iconWrap {
-  transition: color 300ms ease 120ms, background-color 300ms ease 120ms, opacity 300ms ease 120ms;
+  transition: color 300ms ease 120ms, background-color 300ms ease 120ms, opacity 300ms ease 120ms, transform 300ms ease 120ms;
 }
 
-/* The icon plate warms to solid gold, the glow's source; gold fills take navy. */
+/* The icon plate inverts — navy fill, logo gold icon — rather than just intensifying,
+   since gold is now the resting state. Still the pairing the glow radiates from. */
 .card:hover .iconWrap,
 .card:focus-visible .iconWrap {
-  background: var(--accent-600);
-  color: var(--ink-800);
+  background: var(--ink-800);
+  color: var(--accent-500);
+  transform: scale(1.08);
 }
 
 .card:hover .index,

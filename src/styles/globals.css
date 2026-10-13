@@ -93,29 +93,29 @@ button {
 }
 
 /*
- * The section label used across the homepage: a short rule, then small spaced capitals.
- * It owns the type only; colour belongs to the section (gold on light, logo gold on navy)
- * and the rule follows it. Left-aligned by default; centred titles add justify-content.
- * Component eyebrow classes must not also set font-size or letter-spacing, since two
- * single-class rules from different stylesheets resolve by load order.
+ * The section label used across the homepage: a small gold badge, not a rule-plus-caps
+ * line — that convention is the reference sites' signature and we want our own. A plain
+ * tinted pill (no dot — it read as a stray bullet, not a mark) is enough to make it read
+ * as a tag rather than a caption. `width: fit-content` keeps the pill hugging its own text
+ * rather than stretching to the full column width it would otherwise inherit as a
+ * block/grid-item box; centred placements then use `margin-inline: auto` (a
+ * definite-width box, so the classic trick works) rather than `justify-content`. Colour
+ * belongs to the section (gold-on-cream on light, translucent gold on navy); component
+ * eyebrow classes must not also set font-size or letter-spacing, since two single-class
+ * rules from different stylesheets resolve by load order.
  */
 .ruled-label {
   display: flex;
-  align-items: center;
-  gap: var(--sp-3);
+  width: fit-content;
   font-family: var(--font-body);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-xs);
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-}
-.ruled-label::before {
-  content: '';
-  flex: none;
-  width: var(--sp-6);
-  height: 2px;
+  padding: var(--sp-2) var(--sp-5);
   border-radius: var(--radius-pill);
-  background: currentColor;
+  background: var(--accent-100);
+  color: var(--accent-700);
 }
 
 /* Motion is decoration, so anyone who asks for less gets none of it. */

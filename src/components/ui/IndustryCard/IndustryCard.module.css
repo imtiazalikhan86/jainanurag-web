@@ -1,6 +1,7 @@
 .card {
   display: grid;
-  gap: var(--sp-2);
+  gap: var(--sp-3);
+  align-content: start;
   padding: var(--sp-5);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
@@ -9,12 +10,28 @@
 }
 
 .card:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
   border-color: var(--accent-100);
   box-shadow: var(--shadow-md);
 }
 
-.icon { color: var(--accent-700); }
+/* Solid gold, navy icon by default — see FeatureCard for why this replaced a pale wash. */
+.iconWrap {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-md);
+  background: var(--accent-600);
+  color: var(--ink-800);
+  transition: background-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.card:hover .iconWrap {
+  background: var(--ink-800);
+  color: var(--accent-500);
+  transform: scale(1.08);
+}
 
 .name {
   font-size: 1rem;

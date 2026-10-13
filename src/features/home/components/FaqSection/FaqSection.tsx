@@ -2,6 +2,7 @@ import { Button } from '../../../../components/common/Button/Button';
 import { Container } from '../../../../components/common/Container/Container';
 import { Section } from '../../../../components/common/Section/Section';
 import { Icon } from '../../../../components/common/Icon/Icon';
+import { useInViewOnce } from '../../../../hooks/useInViewOnce';
 import { FAQ_INTRO, FAQS } from '../../../../constants/home-content';
 import styles from './FaqSection.module.css';
 
@@ -10,10 +11,12 @@ import styles from './FaqSection.module.css';
  * screens so the invitation to ask stays beside whichever answer is open.
  */
 export function FaqSection() {
+  const { ref, inView } = useInViewOnce<HTMLElement>();
+
   return (
-    <Section id="faq" tone="tint" aria-labelledby="faq-title">
+    <Section ref={ref} data-inview={inView} id="faq" tone="tint" className={styles.section} aria-labelledby="faq-title">
       <Container className={styles.inner}>
-        <div className={styles.intro}>
+        <div className={`${styles.intro} reveal`}>
           <p className={`${styles.eyebrow} ruled-label`}>{FAQ_INTRO.eyebrow}</p>
           <h2 id="faq-title" className={styles.title}>{FAQ_INTRO.title}</h2>
           {FAQ_INTRO.body.map((paragraph) => (
@@ -27,7 +30,7 @@ export function FaqSection() {
           </div>
         </div>
 
-        <div className={styles.faqs}>
+        <div className={`${styles.faqs} reveal-group`}>
           {FAQS.map((faq) => (
             /* A native disclosure: keyboard accessible and searchable with no JavaScript. */
             <details key={faq.question} className={styles.faq}>

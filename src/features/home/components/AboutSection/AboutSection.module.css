@@ -1,3 +1,22 @@
+/* A quiet gold glow behind the plate, so the plain paper band has some depth under the
+   sticky card without drawing attention away from the copy beside it. */
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+.section::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -6rem;
+  left: -10rem;
+  width: 34rem;
+  height: 34rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 155, 60, 0.1) 0%, transparent 70%);
+}
+
 .inner {
   display: grid;
   grid-template-columns: 0.85fr 1.15fr;
@@ -76,6 +95,27 @@
 }
 
 .body { margin-bottom: var(--sp-4); color: var(--text-body); }
+
+/* The closing line from the client's copy, set apart as a short statement rather than a
+   seventh paragraph — it reads as a conclusion, which is what it is. */
+.closing {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-strong);
+  padding-left: var(--sp-4);
+  border-left: 3px solid var(--accent-600);
+  margin-bottom: var(--sp-6);
+}
+
+.grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: var(--sp-7);
+}
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr; }
+}
 
 .more { margin-top: var(--sp-3); }
 

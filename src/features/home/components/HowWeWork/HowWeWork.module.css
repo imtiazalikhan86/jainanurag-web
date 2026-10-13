@@ -5,6 +5,28 @@
   .grid { grid-template-columns: 1fr; }
 }
 
-/* Half the usual space above the section label. Element + class so it outranks the
-   padding set by the shared Section rule. */
-section.section { padding-top: calc(var(--section-y) / 2); }
+/*
+ * One soft gold glow, centred above the heading, so the warm band has some depth without
+ * the dot texture Industries already uses just before it — two sections running the same
+ * treatment back to back would read as a template rather than a design.
+ */
+section.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* Half the usual space above the section label. Element + class so it outranks the
+     padding set by the shared Section rule. */
+  padding-top: calc(var(--section-y) / 2);
+}
+
+section.section::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -10rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 44rem;
+  height: 28rem;
+  background: radial-gradient(ellipse, rgba(200, 155, 60, 0.14) 0%, transparent 70%);
+}

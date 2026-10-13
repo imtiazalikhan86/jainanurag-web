@@ -1,6 +1,7 @@
 import { Button } from '../../common/Button/Button';
 import { Container } from '../../common/Container/Container';
 import { Icon } from '../../common/Icon/Icon';
+import { useInViewOnce } from '../../../hooks/useInViewOnce';
 import { SITE } from '../../../constants/site';
 import styles from './CtaBand.module.css';
 
@@ -22,10 +23,12 @@ export function CtaBand({
   lead = 'Whether you are setting up a new business, managing taxation and compliance, or entering India from overseas, our team can help.',
   actionLabel = 'Talk to an Expert',
 }: CtaBandProps = {}) {
+  const { ref, inView } = useInViewOnce<HTMLElement>();
+
   return (
-    <section className={styles.cta} aria-labelledby="cta-title">
+    <section ref={ref} data-inview={inView} className={styles.cta} aria-labelledby="cta-title">
       <Container>
-        <div className={styles.panel}>
+        <div className={`${styles.panel} reveal`}>
           <div className={styles.copy}>
             {eyebrow && <p className={`${styles.eyebrow} ruled-label`}>{eyebrow}</p>}
             <h2 id="cta-title" className={styles.title}>{title}</h2>

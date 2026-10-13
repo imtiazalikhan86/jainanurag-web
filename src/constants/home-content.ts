@@ -35,16 +35,20 @@ export const HERO = {
 };
 
 export const PARTNER = {
-  /* Centred above the card, outside it. */
-  sectionTitle: 'What We Do',
   eyebrow: 'Your partner in India',
-  /* Two lines in the design: the claim, then what it takes. */
+  /* Two lines in the design: the claim, then what it takes. Joined as one heading now
+     that this carries the section, rather than sharing it with a second, mismatched
+     "What We Do" label (that eyebrow belongs to Services — it actually says what the
+     firm does). */
   title: ['India Is an Opportunity.', 'Navigating It Takes the Right Expertise.'],
   body: [
     'Entering and operating in India involves more than establishing a business. It requires a clear understanding of local regulations, cross-border taxation, foreign investment rules, and ongoing compliance obligations.',
     'We bring these considerations together through a coordinated, personalised advisory approach—helping international businesses make informed decisions at every stage of their India journey.',
   ],
 };
+
+/* Restates what PARTNER.body already says, as a scannable row rather than more prose. */
+export const PARTNER_TAGS = ['Boutique advisory firm', 'Cross-border specialism', 'Mumbai-based'];
 
 /* Each tile opens the page that substantiates it. */
 export const PARTNER_PILLARS: FeatureItem[] = [
@@ -130,6 +134,11 @@ export const STATS: StatItem[] = [
   { value: '100+', label: 'Professional Advisors' },
 ];
 
+/*
+ * The original had six flowing paragraphs — honest, but a wall of text next to a static
+ * plate. The first two stay as prose; the rest of the same copy (nothing cut, nothing
+ * added) becomes the four-point highlights grid below and a one-line close.
+ */
 export const ABOUT = {
   eyebrow: 'About the firm',
   title: 'Navigating Cross-Border Business with Confidence',
@@ -137,12 +146,16 @@ export const ABOUT = {
   body: [
     'We are a boutique professional advisory firm based in Mumbai, focused on helping businesses navigate the complexities of international operations, cross-border transactions, taxation, regulatory compliance, and financial reporting.',
     'Our approach combines technical expertise with a practical understanding of how businesses operate across jurisdictions. We work with businesses, promoters, international groups, and their advisors to address the challenges that arise when commercial objectives intersect with tax regulations, corporate laws, foreign exchange regulations, and compliance requirements.',
-    'Cross-border business requires more than an understanding of individual regulations. It demands a broader perspective—one that considers the implications of a transaction across jurisdictions, the expectations of regulators, the requirements of stakeholders, and the long-term interests of the business.',
-    'We bring this perspective to every engagement, helping clients assess risks, understand their obligations, structure their decisions, and navigate complex matters with greater clarity and confidence.',
-    'We believe that effective professional advice is built on continuity, accessibility, and a thorough understanding of each client’s business. Our boutique model allows us to offer a personalised approach, with direct partner involvement, considered analysis, and solutions tailored to the specific circumstances of each engagement.',
-    'Our focus is simple: to make complex matters clearer, help businesses make informed decisions, and provide dependable professional guidance as they grow across borders.',
   ],
+  closing: 'Our focus is simple: to make complex matters clearer, help businesses make informed decisions, and provide dependable professional guidance as they grow across borders.',
 };
+
+export const ABOUT_HIGHLIGHTS: FeatureItem[] = [
+  { icon: 'compass', title: 'Broader Perspective', description: 'Considers a transaction’s implications across jurisdictions, regulators, stakeholders and the business’s long-term interests.' },
+  { icon: 'shield', title: 'Risk-Aware Guidance', description: 'Helping clients assess risks, understand obligations and structure decisions with greater clarity and confidence.' },
+  { icon: 'handshake', title: 'Continuity & Access', description: 'Built on continuity, accessibility, and a thorough understanding of each client’s business.' },
+  { icon: 'target', title: 'Tailored, Not Templated', description: 'Direct partner involvement, with solutions tailored to the specific circumstances of each engagement.' },
+];
 
 export const FAQ_INTRO = {
   eyebrow: 'Frequently asked questions',

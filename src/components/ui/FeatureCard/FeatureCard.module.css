@@ -7,14 +7,22 @@
   border-radius: var(--radius-lg);
   background: var(--paper);
   height: 100%;
-  transition: border-color var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
 .card:hover {
+  transform: translateY(-3px);
   border-color: var(--accent-100);
   box-shadow: var(--shadow-md);
 }
 
+/*
+ * Solid gold, navy icon: the vivid, high-contrast pairing the design system already
+ * sanctions for gold fills, used here as the default rather than reserved for a hover
+ * state. A pale wash read as flat next to the reference site's saturated icon colour;
+ * this is bolder without borrowing that site's orange. Hover inverts the pairing (navy
+ * fill, logo-gold icon) for a lively flip rather than a bigger version of the same thing.
+ */
 .iconWrap {
   display: grid;
   place-items: center;
@@ -22,8 +30,15 @@
   width: 44px;
   height: 44px;
   border-radius: var(--radius-md);
-  background: var(--accent-100);
-  color: var(--accent-700);
+  background: var(--accent-600);
+  color: var(--ink-800);
+  transition: background-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.card:hover:not(.dark) .iconWrap {
+  background: var(--ink-800);
+  color: var(--accent-500);
+  transform: scale(1.08);
 }
 
 .title {
@@ -42,12 +57,13 @@
   border-color: var(--line-dark);
 }
 .dark .iconWrap {
-  background: rgba(25, 168, 148, 0.16);
-  color: var(--accent-500);
+  background: var(--accent-500);
+  color: var(--ink-800);
 }
 .dark .title { color: #fff; }
 .dark .description { color: var(--text-on-dark-muted); }
 .dark:hover { border-color: rgba(255, 255, 255, 0.28); box-shadow: none; }
+.dark:hover .iconWrap { background: var(--accent-600); transform: scale(1.08); }
 
 .stacked { flex-direction: column; }
 

@@ -1,5 +1,37 @@
-/* A short band: the figures are the content, so it does not need a full section's depth. */
-.section { padding-block: clamp(var(--sp-7), 1.5rem + 3vw, var(--sp-9)); }
+/* A short band: the figures are the content, so it does not need a full section's depth.
+   One centred glow keeps the numbers from sitting on a flat fill. */
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(var(--sp-7), 1.5rem + 3vw, var(--sp-9));
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56rem;
+  height: 20rem;
+  background: radial-gradient(ellipse, rgba(217, 173, 93, 0.12) 0%, transparent 72%);
+}
+
+/*
+ * Centred, on the logo gold used for text on navy. The badge is fit-content width, so
+ * margin-inline: auto centres it rather than justify-content. Element + class, so this
+ * reliably outranks the plain .ruled-label class it shares an element with — two
+ * single-class rules from different stylesheets otherwise resolve by load order, and
+ * the pale light-mode pill was winning, making the badge unreadable on navy.
+ */
+h2.heading {
+  margin-inline: auto;
+  margin-bottom: var(--sp-6);
+  background: rgba(217, 173, 93, 0.16);
+  color: var(--accent-500);
+}
 
 .stats {
   display: grid;

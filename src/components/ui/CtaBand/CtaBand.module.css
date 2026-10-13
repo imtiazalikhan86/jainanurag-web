@@ -15,8 +15,10 @@
   box-shadow: var(--shadow-lg);
 }
 
-/* Type comes from the global .ruled-label. */
-.eyebrow {
+/* Type comes from the global .ruled-label; translucent gold pill reads correctly on navy.
+   Element + class so it reliably outranks that plain class rule regardless of load order. */
+p.eyebrow {
+  background: rgba(217, 173, 93, 0.16);
   color: var(--accent-500);
   margin-bottom: var(--sp-3);
 }

@@ -1,6 +1,7 @@
 import { Button } from '../../../../components/common/Button/Button';
 import { Container } from '../../../../components/common/Container/Container';
 import { Section } from '../../../../components/common/Section/Section';
+import { useInViewOnce } from '../../../../hooks/useInViewOnce';
 import { COUNTRIES, GLOBAL } from '../../../../constants/home-content';
 import styles from './GlobalBusiness.module.css';
 
@@ -11,10 +12,12 @@ import styles from './GlobalBusiness.module.css';
  * Flags are decorative: each sits beside its country's name, so they carry empty alt.
  */
 export function GlobalBusiness() {
+  const { ref, inView } = useInViewOnce<HTMLElement>();
+
   return (
-    <Section id="global-business" tone="dark" aria-labelledby="global-title" className={styles.section}>
+    <Section ref={ref} data-inview={inView} id="global-business" tone="dark" aria-labelledby="global-title" className={styles.section}>
       <Container className={styles.inner}>
-        <div className={styles.copy}>
+        <div className={`${styles.copy} reveal`}>
           <p className={`${styles.eyebrow} ruled-label`}>
             For international businesses
           </p>
@@ -27,7 +30,7 @@ export function GlobalBusiness() {
           </div>
         </div>
 
-        <ul className={styles.countries}>
+        <ul className={`${styles.countries} reveal-group`}>
           {COUNTRIES.map((country) => (
             <li key={country.name}>
               <img src={country.flag} alt="" width={30} height={20} className={styles.flag} />

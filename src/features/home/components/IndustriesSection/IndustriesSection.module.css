@@ -6,6 +6,14 @@
   .grid { grid-template-columns: repeat(4, 1fr); }
 }
 
-/* Half the usual space above the section label. Element + class so it outranks the
-   padding set by the shared Section rule. */
-section.section { padding-top: calc(var(--section-y) / 2); }
+/*
+ * A faint dot grid gives the warm band some texture rather than a flat fill, without
+ * competing with the cards sitting on top of it. Half the usual space above the section
+ * label. Element + class so it outranks the padding set by the shared Section rule.
+ */
+section.section {
+  padding-top: calc(var(--section-y) / 2);
+  background-color: var(--paper-warm);
+  background-image: radial-gradient(var(--ink-300) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
