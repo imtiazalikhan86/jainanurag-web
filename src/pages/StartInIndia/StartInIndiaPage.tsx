@@ -6,6 +6,7 @@ import { Section } from '../../components/common/Section/Section';
 import { CtaBand } from '../../components/ui/CtaBand/CtaBand';
 import { PageHero } from '../../components/ui/PageHero/PageHero';
 import { useDocumentMeta } from '../../hooks/useDocumentMeta';
+import { useInViewOnce } from '../../hooks/useInViewOnce';
 import { ENTRY_ROUTES, entryHref } from '../../constants/india-entry';
 import styles from './StartInIndia.module.css';
 
@@ -25,6 +26,9 @@ export default function StartInIndiaPage() {
       'How an overseas company or a foreign founder sets up in India: choosing a structure, legalising documents, incorporating, reporting the investment and planning ongoing compliance.',
   });
 
+  const { ref: routesRef, inView: routesInView } = useInViewOnce<HTMLElement>();
+  const { ref: stagesRef, inView: stagesInView } = useInViewOnce<HTMLElement>();
+
   return (
     <>
       <PageHero
@@ -36,10 +40,10 @@ export default function StartInIndiaPage() {
         <Button to="/contact" variant="primary" withArrow>Talk to an Expert</Button>
       </PageHero>
 
-      <Section>
+      <Section ref={routesRef} data-inview={routesInView}>
         <Container>
-          <h2 className={styles.heading}>Choose your route</h2>
-          <ul className={styles.routes}>
+          <h2 className={`${styles.heading} reveal`}>Choose your route</h2>
+          <ul className={`${styles.routes} reveal-group`}>
             {ENTRY_ROUTES.map((route) => (
               <li key={route.slug}>
                 <Link to={entryHref(route.slug)} className={styles.routeCard}>
@@ -56,10 +60,10 @@ export default function StartInIndiaPage() {
         </Container>
       </Section>
 
-      <Section tone="warm">
+      <Section ref={stagesRef} data-inview={stagesInView} tone="warm" className={styles.stagesSection}>
         <Container>
-          <h2 className={styles.heading}>What an India entry involves</h2>
-          <ol className={styles.stages}>
+          <h2 className={`${styles.heading} reveal`}>What an India entry involves</h2>
+          <ol className={`${styles.stages} reveal-group`}>
             {STAGES.map((stage, index) => (
               <li key={stage.title}>
                 <span className={styles.stageNumber} aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>

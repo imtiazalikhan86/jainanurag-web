@@ -5,6 +5,7 @@ import { Section } from '../../components/common/Section/Section';
 import { CtaBand } from '../../components/ui/CtaBand/CtaBand';
 import { PageHero } from '../../components/ui/PageHero/PageHero';
 import { useDocumentMeta } from '../../hooks/useDocumentMeta';
+import { useInViewOnce } from '../../hooks/useInViewOnce';
 import { CORRIDORS } from '../../constants/resources';
 import styles from './Resources.module.css';
 
@@ -15,6 +16,8 @@ export default function CorridorsPage() {
       'How documents from your country are legalised for an India entry: apostille or consular legalisation, and what to prepare before incorporation.',
   });
 
+  const { ref, inView } = useInViewOnce<HTMLElement>();
+
   return (
     <>
       <PageHero
@@ -24,10 +27,10 @@ export default function CorridorsPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Resources', href: '/resources' }, { label: 'Corridors' }]}
       />
 
-      <Section>
+      <Section ref={ref} data-inview={inView}>
         <Container>
-          <h2 className={styles.heading}>Legalisation route by country</h2>
-          <div className={styles.tableWrap}>
+          <h2 className={`${styles.heading} reveal`}>Legalisation route by country</h2>
+          <div className={`${styles.tableWrap} reveal`}>
             <table className={styles.table}>
               <caption className="visually-hidden">
                 Document legalisation route for each country, and a note on local practice.
@@ -61,8 +64,10 @@ export default function CorridorsPage() {
             on whether your country is a party to the Hague Apostille Convention, and we will confirm it.
           </p>
 
-          <div className={styles.pending}>
-            <Icon name="map" size={22} aria-hidden />
+          <div className={`${styles.pending} reveal`}>
+            <span className={styles.pendingIcon} aria-hidden="true">
+              <Icon name="map" size={22} />
+            </span>
             <div>
               <strong>Full country guides are being prepared</strong>
               <p>

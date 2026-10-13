@@ -6,6 +6,7 @@ import { Section } from '../../components/common/Section/Section';
 import { CtaBand } from '../../components/ui/CtaBand/CtaBand';
 import { PageHero } from '../../components/ui/PageHero/PageHero';
 import { useDocumentMeta } from '../../hooks/useDocumentMeta';
+import { useInViewOnce } from '../../hooks/useInViewOnce';
 import styles from './PricingPage.module.css';
 
 /*
@@ -54,6 +55,10 @@ export default function PricingPage() {
       'How engagements are priced: fixed fee for defined work, a monthly retainer for recurring compliance, and scoped advisory. What changes the number, and how to get a quote.',
   });
 
+  const { ref: modelsRef, inView: modelsInView } = useInViewOnce<HTMLElement>();
+  const { ref: factorsRef, inView: factorsInView } = useInViewOnce<HTMLElement>();
+  const { ref: promisesRef, inView: promisesInView } = useInViewOnce<HTMLElement>();
+
   return (
     <>
       <PageHero
@@ -65,10 +70,10 @@ export default function PricingPage() {
         <Button to="/contact" variant="primary" withArrow>Request a quote</Button>
       </PageHero>
 
-      <Section>
+      <Section ref={modelsRef} data-inview={modelsInView}>
         <Container>
-          <h2 className={styles.heading}>Three engagement models</h2>
-          <ul className={styles.models}>
+          <h2 className={`${styles.heading} reveal`}>Three engagement models</h2>
+          <ul className={`${styles.models} reveal-group`}>
             {MODELS.map((model) => (
               <li key={model.title} className={styles.model}>
                 <span className={styles.icon} aria-hidden="true">
@@ -103,10 +108,10 @@ export default function PricingPage() {
         </Container>
       </Section>
 
-      <Section tone="warm">
+      <Section ref={factorsRef} data-inview={factorsInView} tone="warm" className={styles.factorsSection}>
         <Container>
-          <h2 className={styles.heading}>What changes the number</h2>
-          <dl className={styles.factors}>
+          <h2 className={`${styles.heading} reveal`}>What changes the number</h2>
+          <dl className={`${styles.factors} reveal-group`}>
             {FACTORS.map((factor) => (
               <div key={factor.title}>
                 <dt>{factor.title}</dt>
@@ -117,10 +122,10 @@ export default function PricingPage() {
         </Container>
       </Section>
 
-      <Section>
+      <Section ref={promisesRef} data-inview={promisesInView}>
         <Container width="narrow">
-          <h2 className={styles.heading}>What you can expect</h2>
-          <ul className={styles.promises}>
+          <h2 className={`${styles.heading} reveal`}>What you can expect</h2>
+          <ul className={`${styles.promises} reveal-group`}>
             <li><Icon name="check" size={18} aria-hidden /> A written scope before work starts, so both sides know what is included.</li>
             <li><Icon name="check" size={18} aria-hidden /> Government fees, stamp duty and third-party charges shown separately from our fee.</li>
             <li><Icon name="check" size={18} aria-hidden /> A re-quote before any work outside the agreed scope, not an invoice afterwards.</li>

@@ -138,6 +138,12 @@
   color: var(--text-strong);
 }
 
+/*
+ * Solid gold, navy icon: the same bold chip used for every card icon elsewhere on the
+ * site, rather than the pale wash this had drifted to — and that wash's old hover state
+ * (white on accent-600) was a flagged failure in the design system itself, 2.5:1. Hover
+ * inverts to navy-with-gold, same as everywhere else.
+ */
 .megaIcon {
   display: grid;
   place-items: center;
@@ -145,12 +151,12 @@
   width: 34px;
   height: 34px;
   border-radius: var(--radius-sm);
-  background: var(--accent-100);
-  color: var(--accent-700);
-  transition: background var(--transition), color var(--transition);
+  background: var(--accent-600);
+  color: var(--ink-800);
+  transition: background var(--transition), color var(--transition), transform var(--transition);
 }
 
-.megaLink:hover .megaIcon { background: var(--accent-600); color: #fff; }
+.megaLink:hover .megaIcon { background: var(--ink-800); color: var(--accent-500); transform: scale(1.08); }
 
 .panelFoot {
   display: flex;
@@ -241,5 +247,5 @@
     transition: visibility 0s;
   }
   .chevron, .megaLink, .megaIcon, .panelArrow, .panelCta svg { transition: none; }
-  .megaLink:hover, .panelLink:hover .panelArrow, .panelCta:hover svg { transform: none; }
+  .megaLink:hover, .megaLink:hover .megaIcon, .panelLink:hover .panelArrow, .panelCta:hover svg { transform: none; }
 }

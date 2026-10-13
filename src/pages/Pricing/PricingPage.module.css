@@ -19,14 +19,17 @@
   border-radius: var(--radius-lg);
 }
 
+/* Solid gold, navy icon — same bold chip as ServiceCard/IndustryCard. No hover invert:
+   this card is informational, not a link, so a hover reaction would imply interactivity
+   that isn't there. */
 .icon {
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
   border-radius: var(--radius-md);
-  background: var(--accent-100);
-  color: var(--accent-700);
+  background: var(--accent-600);
+  color: var(--ink-800);
   margin-bottom: var(--sp-4);
 }
 
@@ -85,3 +88,22 @@
 .footNote { font-size: var(--fs-sm); color: var(--text-muted); }
 .footNote a { color: var(--accent-700); font-weight: 600; }
 .footNote a:hover { text-decoration: underline; }
+
+/* One soft gold glow behind the factors list, so the warm band has some depth rather
+   than a flat fill — the same treatment used sparingly on the homepage. */
+section.factorsSection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+section.factorsSection::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -8rem;
+  left: -8rem;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 155, 60, 0.12) 0%, transparent 70%);
+}

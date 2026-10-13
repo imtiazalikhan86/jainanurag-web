@@ -132,15 +132,24 @@
 }
 .relatedCard:hover { border-color: var(--accent-500); box-shadow: var(--shadow-sm); }
 
+/* Solid gold, navy icon by default, inverting on hover — see ServiceCard/IndustryCard
+   for the same pattern established on the homepage. */
 .relatedIcon {
   display: grid;
   place-items: center;
   width: 40px;
   height: 40px;
   border-radius: var(--radius-sm);
-  background: var(--accent-100);
-  color: var(--accent-700);
+  background: var(--accent-600);
+  color: var(--ink-800);
   margin-bottom: var(--sp-3);
+  transition: background-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.relatedCard:hover .relatedIcon {
+  background: var(--ink-800);
+  color: var(--accent-500);
+  transform: scale(1.08);
 }
 
 .relatedCard strong {

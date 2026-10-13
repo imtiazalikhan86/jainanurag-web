@@ -6,6 +6,7 @@ import { Section } from '../../components/common/Section/Section';
 import { CtaBand } from '../../components/ui/CtaBand/CtaBand';
 import { PageHero } from '../../components/ui/PageHero/PageHero';
 import { useDocumentMeta } from '../../hooks/useDocumentMeta';
+import { useInViewOnce } from '../../hooks/useInViewOnce';
 import { findEntryRoute } from '../../constants/india-entry';
 import { findService, serviceHref } from '../../constants/services';
 import styles from './StartInIndia.module.css';
@@ -13,6 +14,8 @@ import styles from './StartInIndia.module.css';
 export default function EntryRoutePage() {
   const { slug } = useParams();
   const route = findEntryRoute(slug);
+  const { ref: sequenceRef, inView: sequenceInView } = useInViewOnce<HTMLElement>();
+  const { ref: relatedRef, inView: relatedInView } = useInViewOnce<HTMLElement>();
 
   if (!route) return <Navigate to="/404" replace />;
 
@@ -33,12 +36,12 @@ export default function EntryRoutePage() {
         <Button to="/contact" variant="primary" withArrow>Talk to an Expert</Button>
       </PageHero>
 
-      <Section>
+      <Section ref={sequenceRef} data-inview={sequenceInView}>
         <Container>
           <div className={styles.split}>
             <div>
-              <h2 className={styles.heading}>The sequence</h2>
-              <ol className={styles.sequence}>
+              <h2 className={`${styles.heading} reveal`}>The sequence</h2>
+              <ol className={`${styles.sequence} reveal-group`}>
                 {route.steps.map((step, index) => (
                   <li key={step.title}>
                     <span className={styles.seqNumber} aria-hidden="true">{index + 1}</span>
@@ -51,7 +54,7 @@ export default function EntryRoutePage() {
               </ol>
             </div>
 
-            <aside className={styles.aside} aria-labelledby="documents-title">
+            <aside className={`${styles.aside} reveal`} aria-labelledby="documents-title">
               <h2 id="documents-title" className={styles.asideTitle}>What you will need</h2>
               <ul className={styles.asideList}>
                 {route.documents.map((doc) => (
@@ -70,10 +73,10 @@ export default function EntryRoutePage() {
         </Container>
       </Section>
 
-      <Section tone="tint">
+      <Section ref={relatedRef} data-inview={relatedInView} tone="tint">
         <Container>
-          <h2 className={styles.heading}>Services that carry this out</h2>
-          <ul className={styles.related}>
+          <h2 className={`${styles.heading} reveal`}>Services that carry this out</h2>
+          <ul className={`${styles.related} reveal-group`}>
             {route.relatedServices.map((serviceSlug) => {
               const service = findService(serviceSlug);
               if (!service) return null;

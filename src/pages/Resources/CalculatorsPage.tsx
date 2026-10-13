@@ -5,6 +5,7 @@ import { Section } from '../../components/common/Section/Section';
 import { CtaBand } from '../../components/ui/CtaBand/CtaBand';
 import { PageHero } from '../../components/ui/PageHero/PageHero';
 import { useDocumentMeta } from '../../hooks/useDocumentMeta';
+import { useInViewOnce } from '../../hooks/useInViewOnce';
 import { CALCULATORS } from '../../constants/resources';
 import styles from './Resources.module.css';
 
@@ -15,6 +16,8 @@ export default function CalculatorsPage() {
       'Planning tools for entity choice, India setup cost, the compliance calendar and withholding tax rates.',
   });
 
+  const { ref, inView } = useInViewOnce<HTMLElement>();
+
   return (
     <>
       <PageHero
@@ -24,10 +27,10 @@ export default function CalculatorsPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Resources', href: '/resources' }, { label: 'Calculators' }]}
       />
 
-      <Section>
+      <Section ref={ref} data-inview={inView}>
         <Container>
-          <h2 className={styles.heading}>Planned tools</h2>
-          <ul className={styles.cards}>
+          <h2 className={`${styles.heading} reveal`}>Planned tools</h2>
+          <ul className={`${styles.cards} reveal-group`}>
             {CALCULATORS.map((calculator) => (
               <li key={calculator.title}>
                 <div className={`${styles.card} ${styles.cardStatic}`}>
@@ -43,8 +46,10 @@ export default function CalculatorsPage() {
           </ul>
 
           {/* Rates and thresholds change every year, and a stale calculator is worse than none. */}
-          <div className={styles.pending}>
-            <Icon name="clock" size={22} aria-hidden />
+          <div className={`${styles.pending} reveal`}>
+            <span className={styles.pendingIcon} aria-hidden="true">
+              <Icon name="clock" size={22} />
+            </span>
             <div>
               <strong>Why these are not live yet</strong>
               <p>

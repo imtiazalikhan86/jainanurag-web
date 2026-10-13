@@ -5,6 +5,7 @@ import { Section } from '../../components/common/Section/Section';
 import { CtaBand } from '../../components/ui/CtaBand/CtaBand';
 import { PageHero } from '../../components/ui/PageHero/PageHero';
 import { useDocumentMeta } from '../../hooks/useDocumentMeta';
+import { useInViewOnce } from '../../hooks/useInViewOnce';
 import styles from './Resources.module.css';
 
 const AREAS = [
@@ -20,6 +21,8 @@ export default function ResourcesPage() {
       'Guides, country corridors and planning tools for businesses setting up and operating in India.',
   });
 
+  const { ref, inView } = useInViewOnce<HTMLElement>();
+
   return (
     <>
       <PageHero
@@ -29,9 +32,9 @@ export default function ResourcesPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Resources' }]}
       />
 
-      <Section>
+      <Section ref={ref} data-inview={inView}>
         <Container>
-          <ul className={styles.cards}>
+          <ul className={`${styles.cards} reveal-group`}>
             {AREAS.map((area) => (
               <li key={area.href}>
                 <Link to={area.href} className={styles.card}>

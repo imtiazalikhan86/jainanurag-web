@@ -34,15 +34,22 @@
   --gold-500: var(--accent-600);
   --gold-100: var(--accent-100);
 
-  /* Neutrals --------------------------------------------------------------- */
-  --page-bg: #ffffff;        /* the page itself, separate from card surfaces */
+  /*
+   * Neutrals -----------------------------------------------------------------
+   * Pulled back from pure white, which read as stark/clinical next to the navy and gold
+   * brand colours. Each tone keeps its hue (warm stays warm, tint stays cool) and its
+   * position relative to the others — paper lightest, then warm, then tint — just a few
+   * points darker across the board. --image-plate is deliberately excluded: it mounts
+   * artwork drawn on true white and does not flip with the theme.
+   */
+  --page-bg: #f7f6f3;        /* the page itself, separate from card surfaces */
   --band-dark: var(--ink-900);   /* the `dark` section tone */
   --surface-strong: var(--ink-800); /* small inverted chips, e.g. numbered steps */
-  --paper: #ffffff;
+  --paper: #f7f6f3;
   --image-plate: #ffffff; /* behind artwork drawn on white; does not flip with the theme */
-  --paper-warm: #faf8f4;  /* warm off-white keeps the page from feeling clinical */
-  --paper-tint: #f2f6f8;
-  --line: #e4e9ef;
+  --paper-warm: #f1ece2;  /* warm off-white keeps the page from feeling clinical */
+  --paper-tint: #e8edf0;
+  --line: #ddd8ce;
   --line-dark: rgba(255, 255, 255, 0.14);
 
   /* Semantic --------------------------------------------------------------- */

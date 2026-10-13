@@ -34,15 +34,24 @@
   transform: translateY(-2px);
 }
 
+/* Solid gold, navy icon by default, inverting on hover — see ServiceCard/IndustryCard
+   for the same pattern established on the homepage. */
 .icon {
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
   border-radius: var(--radius-md);
-  background: var(--accent-100);
-  color: var(--accent-700);
+  background: var(--accent-600);
+  color: var(--ink-800);
   margin-bottom: var(--sp-4);
+  transition: background-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.card:hover .icon {
+  background: var(--ink-800);
+  color: var(--accent-500);
+  transform: scale(1.08);
 }
 
 .cardTitle {

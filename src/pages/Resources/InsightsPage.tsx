@@ -5,6 +5,7 @@ import { Section } from '../../components/common/Section/Section';
 import { CtaBand } from '../../components/ui/CtaBand/CtaBand';
 import { PageHero } from '../../components/ui/PageHero/PageHero';
 import { useDocumentMeta } from '../../hooks/useDocumentMeta';
+import { useInViewOnce } from '../../hooks/useInViewOnce';
 import { INSIGHT_TOPICS } from '../../constants/resources';
 import styles from './Resources.module.css';
 
@@ -15,6 +16,8 @@ export default function InsightsPage() {
       'Topics we write about: India entry, FEMA and RBI reporting, company law, GST, direct tax and transfer pricing.',
   });
 
+  const { ref, inView } = useInViewOnce<HTMLElement>();
+
   return (
     <>
       <PageHero
@@ -24,10 +27,10 @@ export default function InsightsPage() {
         crumbs={[{ label: 'Home', href: '/' }, { label: 'Resources', href: '/resources' }, { label: 'Insights' }]}
       />
 
-      <Section>
+      <Section ref={ref} data-inview={inView}>
         <Container>
-          <h2 className={styles.heading}>Topics</h2>
-          <ul className={styles.cards}>
+          <h2 className={`${styles.heading} reveal`}>Topics</h2>
+          <ul className={`${styles.cards} reveal-group`}>
             {INSIGHT_TOPICS.map((topic) => (
               <li key={topic.title}>
                 <Link to={topic.href} className={styles.card}>
@@ -43,8 +46,10 @@ export default function InsightsPage() {
           </ul>
 
           {/* An honest empty state beats a library of invented articles. */}
-          <div className={styles.pending}>
-            <Icon name="ledger" size={22} aria-hidden />
+          <div className={`${styles.pending} reveal`}>
+            <span className={styles.pendingIcon} aria-hidden="true">
+              <Icon name="ledger" size={22} />
+            </span>
             <div>
               <strong>Written guides are being prepared</strong>
               <p>

@@ -26,15 +26,24 @@
   transform: translateY(-2px);
 }
 
+/* Solid gold, navy icon by default, inverting on hover — see ServiceCard/IndustryCard
+   for the pattern this matches. */
 .routeIcon {
   display: grid;
   place-items: center;
   width: 44px;
   height: 44px;
   border-radius: var(--radius-md);
-  background: var(--accent-100);
-  color: var(--accent-700);
+  background: var(--accent-600);
+  color: var(--ink-800);
   margin-bottom: var(--sp-4);
+  transition: background-color var(--transition), color var(--transition), transform var(--transition);
+}
+
+.routeCard:hover .routeIcon {
+  background: var(--ink-800);
+  color: var(--accent-500);
+  transform: scale(1.08);
 }
 
 .routeCard strong {
@@ -130,6 +139,25 @@
 @media (max-width: 900px) {
   .split { grid-template-columns: 1fr; gap: var(--sp-6); }
   .aside { position: static; }
+}
+
+/* One soft gold glow behind the stages list, so the warm band has some depth rather
+   than a flat fill — the same treatment used sparingly on the homepage. */
+section.stagesSection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+section.stagesSection::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -8rem;
+  right: -8rem;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(200, 155, 60, 0.12) 0%, transparent 70%);
 }
 
 @media (prefers-reduced-motion: reduce) {
