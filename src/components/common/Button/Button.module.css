@@ -1,4 +1,7 @@
 .btn {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -11,6 +14,42 @@
   white-space: nowrap;
   transition: background var(--transition), color var(--transition), border-color var(--transition),
     transform var(--transition), box-shadow var(--transition);
+}
+
+/*
+ * The Material-style ripple: a circle sized and positioned by Button.tsx to the click
+ * point, scaling from 0 to full size while it fades. `overflow: hidden` on .btn clips it
+ * to the pill shape. Each variant sets its own --ripple, since white glows on gold and
+ * gold glows on white, never the other way round. `.btn > *` puts every direct child
+ * (label, arrow, ripple spans alike) above the button's own background; the more specific
+ * `.btn > .ripple` rule then puts ripples back under that content specifically.
+ */
+.btn > * { position: relative; z-index: 1; }
+
+.ripple {
+  position: absolute;
+  z-index: 0;
+  border-radius: 50%;
+  background: var(--ripple, rgba(255, 255, 255, 0.4));
+  transform: scale(0);
+  opacity: 1;
+  pointer-events: none;
+  animation: ripple-out 650ms ease-out forwards;
+}
+.btn > .ripple { z-index: 0; }
+
+@keyframes ripple-out {
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Belt and suspenders: Button.tsx already skips creating ripples under reduced motion,
+     but if one is already in flight when the preference changes mid-session, this stops
+     it from animating rather than leaving it to the (also overridden) duration above. */
+  .ripple { animation: none; opacity: 0; }
 }
 
 /*
@@ -39,6 +78,7 @@
  * outright. Navy reads at 6.9:1 and is the pairing the logo itself uses.
  */
 .primary {
+  --ripple: rgba(255, 255, 255, 0.4);
   background: var(--accent-600);
   color: var(--ink-900);
   box-shadow: 0 6px 18px rgba(1, 24, 61, 0.18);
@@ -50,6 +90,7 @@
 }
 
 .secondary {
+  --ripple: rgba(200, 155, 60, 0.22);
   background: var(--paper);
   color: var(--text-strong);
   border-color: var(--line);
@@ -60,6 +101,9 @@
 }
 
 .ghost {
+  /* No fill, no padding either side — a circular ripple would clip oddly against a bare
+     text row, so this variant keeps its plain colour-only hover instead. */
+  --ripple: transparent;
   background: transparent;
   color: var(--text-strong);
   padding-inline: 0;
@@ -68,6 +112,7 @@
 
 /* For dark bands, where a white outline reads better than a tinted fill. */
 .onDark {
+  --ripple: rgba(217, 173, 93, 0.3);
   background: transparent;
   color: #fff;
   border-color: rgba(255, 255, 255, 0.35);
