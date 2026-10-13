@@ -1,9 +1,52 @@
+/*
+ * The photograph fills the section; the veil over it is navy, deep at the top where the
+ * heading sits, lightest through the middle so the lit towers show between the cards, and
+ * deep again at the bottom where the street-level lights would otherwise compete.
+ * The veil is the brand navy in both themes, which is why this section needs no dark-mode
+ * rules of its own.
+ */
+.section {
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--ink-900);
+}
+
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Keep the skyline and its lights in frame rather than the empty sky. */
+  object-position: center 65%;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(1, 18, 47, 0.9) 0%,
+    rgba(1, 18, 47, 0.72) 30%,
+    rgba(1, 18, 47, 0.55) 55%,
+    /* Darkens again toward the bottom, so the busy street lights there recede and the
+       section runs into the navy band below. */
+    rgba(1, 18, 47, 0.8) 82%,
+    rgba(1, 18, 47, 0.96) 100%
+  );
+}
+
+.inner { position: relative; }
+
 .grid {
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
 }
 
 @media (min-width: 1100px) {
-  .grid { grid-template-columns: repeat(4, 1fr); }
+  .grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 .foot {
@@ -11,3 +54,14 @@
   justify-content: center;
   margin-top: var(--sp-7);
 }
+
+/* The outline button sits over the brightest lights in the photograph; a navy backing
+   keeps its white label readable whatever is behind it. */
+.foot .more {
+  background: rgba(1, 18, 47, 0.7);
+  backdrop-filter: blur(6px);
+}
+
+/* Half the usual space above the "Why Us?" label. Element + class so it outranks the
+   padding set by the shared Section rule. */
+section.section { padding-top: calc(var(--section-y) / 2); }

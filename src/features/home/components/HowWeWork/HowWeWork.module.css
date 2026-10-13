@@ -1,0 +1,10 @@
+/* Exactly two columns: auto-fit fits three at full width and leaves the fourth an orphan. */
+.grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+@media (max-width: 768px) {
+  .grid { grid-template-columns: 1fr; }
+}
+
+/* Half the usual space above the section label. Element + class so it outranks the
+   padding set by the shared Section rule. */
+section.section { padding-top: calc(var(--section-y) / 2); }

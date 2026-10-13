@@ -3,18 +3,28 @@ import { Container } from '../../../../components/common/Container/Container';
 import { Section } from '../../../../components/common/Section/Section';
 import { SectionTitle } from '../../../../components/common/SectionTitle/SectionTitle';
 import { ServiceCard } from '../../../../components/ui/ServiceCard/ServiceCard';
-import { SERVICES } from '../../../../constants/home-content';
+import { SERVICES, SERVICES_INTRO } from '../../../../constants/home-content';
+import skyline from '../../../../assets/images/mumbai-skyline-night.jpg';
 import styles from './ServicesSection.module.css';
 
+/*
+ * Set over a photograph of the Mumbai skyline at dusk, behind a navy veil. This is not the
+ * `dark` section tone on purpose: that tone whitens every h3, which would blank out the
+ * titles on the white service cards. The section takes light text only where it needs it.
+ */
 export function ServicesSection() {
   return (
-    <Section id="services" aria-labelledby="services-title">
-      <Container>
+    <Section id="services" aria-labelledby="services-title" className={styles.section}>
+      {/* Decorative: below the fold, so it loads lazily rather than competing with the hero. */}
+      <img src={skyline} alt="" width={2000} height={1125} loading="lazy" decoding="async" className={styles.backdrop} />
+
+      <Container className={styles.inner}>
         <SectionTitle
           id="services-title"
-          eyebrow="What we do"
-          title="Services for every stage of your business"
-          description="Taxation, compliance and advisory handled by one professional team, so responsibilities never fall between advisers."
+          eyebrow={SERVICES_INTRO.eyebrow}
+          title={SERVICES_INTRO.title}
+          description={SERVICES_INTRO.description}
+          tone="dark"
         />
 
         <ul className={`grid ${styles.grid}`}>
@@ -31,7 +41,7 @@ export function ServicesSection() {
         </ul>
 
         <div className={styles.foot}>
-          <Button to="/services" variant="secondary" withArrow>View all services</Button>
+          <Button to="/services" variant="onDark" withArrow className={styles.more}>View all services</Button>
         </div>
       </Container>
     </Section>

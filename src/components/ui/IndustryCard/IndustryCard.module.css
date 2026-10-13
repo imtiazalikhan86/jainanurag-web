@@ -26,3 +26,9 @@
   color: var(--text-muted);
   line-height: 1.55;
 }
+
+.compact {
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--sp-3);
+}

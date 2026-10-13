@@ -7,15 +7,15 @@
   position: sticky;
   top: 0;
   z-index: 80;
-  background: var(--ink-800);
-  border-bottom: 1px solid transparent;
-  transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
+  background: var(--header-bg);
+  /* The gold rule is part of the band, present from first paint, not earned by scrolling. */
+  border-bottom: 1px solid rgba(217, 173, 93, 0.22);
+  transition: box-shadow var(--transition), background var(--transition);
 }
 
-/* Scrolled, it deepens and takes an edge rather than changing colour entirely. */
+/* Scrolled, it deepens and lifts rather than changing colour entirely. */
 .scrolled {
   background: var(--ink-900);
-  border-bottom-color: rgba(217, 173, 93, 0.22);
   box-shadow: 0 10px 30px rgba(1, 18, 47, 0.35);
 }
 

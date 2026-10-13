@@ -9,6 +9,21 @@
   max-width: var(--container-narrow);
 }
 
+/*
+ * Wide screens: instead of capping at --container and centring, the content runs wider
+ * with each side margin at half what centring would give — (gutter + padding) / 2.
+ * Never tighter than the standard padding. Narrow containers keep their reading width.
+ */
+@media (min-width: 861px) {
+  .container:not(.narrow) {
+    max-width: none;
+    padding-inline: max(
+      var(--sp-5),
+      calc((100% - var(--container) + 2 * var(--sp-5)) / 4)
+    );
+  }
+}
+
 @media (max-width: 480px) {
   .container {
     padding-inline: var(--sp-4);

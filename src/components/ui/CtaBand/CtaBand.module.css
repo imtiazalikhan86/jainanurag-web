@@ -15,6 +15,12 @@
   box-shadow: var(--shadow-lg);
 }
 
+/* Type comes from the global .ruled-label. */
+.eyebrow {
+  color: var(--accent-500);
+  margin-bottom: var(--sp-3);
+}
+
 .title { color: #fff; margin-bottom: var(--sp-4); text-wrap: balance; }
 
 .lead {

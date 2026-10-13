@@ -7,6 +7,8 @@
   color: var(--text-on-dark);
   overflow: hidden;
   padding-block: clamp(3rem, 1.75rem + 5.5vw, 5.5rem);
+  /* Three-quarters of the usual space above the flags pill; the bottom keeps the full gap. */
+  padding-top: calc(clamp(3rem, 1.75rem + 5.5vw, 5.5rem) * 0.75);
 }
 
 .inner {
@@ -21,8 +23,9 @@
   /* Wide enough to keep the headline to four lines at desktop widths, narrow enough
      that it never runs over the people in the artwork. */
   max-width: 38rem;
-  /* Half the hero at most, so the copy never creeps over the people in the artwork. */
-  padding-right: var(--sp-5);
+  /* Half the standard padding; the max-width above is what keeps the copy off the
+     people in the artwork. */
+  padding-right: var(--sp-3);
 }
 
 /*
@@ -36,31 +39,16 @@
 }
 
 /*
- * Contrast guard. The artwork fades to navy on its left, but the fade sits at a fixed
- * point in the image and the viewport is not, so this gradient does the actual work of
- * keeping the headline legible at every width.
+ * Each slide is sized by the hero's width, not stretched to its height. The hero is one
+ * screen tall, and covering that on a tall screen scaled the image up and cropped it from
+ * the left, which slid the skyline under the copy. Sized by width, a wide screen crops the
+ * bottom instead (where every banner fades to plain navy anyway) and a tall screen leaves
+ * navy below, which the mask blends the image's bottom edge into.
  */
-.hero::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  /*
-   * These stops are set by measurement, not by eye. The accent word in the headline is
-   * gold, which is far less forgiving than the white around it: against the brightest part
-   * of the skyline it measured 2.9:1, below the 3:1 floor for large text, while the white
-   * beside it sat at a comfortable 6:1. The fade now holds above 0.84 across the full
-   * width the headline can reach before it opens up over the photograph.
-   */
-  background: linear-gradient(
-    90deg,
-    rgba(1, 18, 47, 0.97) 0%,
-    rgba(1, 18, 47, 0.94) 34%,
-    rgba(1, 18, 47, 0.86) 55%,
-    rgba(1, 18, 47, 0.45) 72%,
-    rgba(1, 18, 47, 0.12) 100%
-  );
-  pointer-events: none;
+.banner img {
+  height: auto;
+  bottom: auto;
+  mask-image: linear-gradient(to bottom, black 75%, transparent);
 }
 
 .eyebrow {
@@ -75,11 +63,35 @@
   margin-bottom: var(--sp-4);
 }
 
-.dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent-500);
+/* The eyebrow as a pill: the flags of the markets the firm serves, then the label. */
+.eyebrow {
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-4);
+  padding: var(--sp-2) var(--sp-5) var(--sp-2) var(--sp-3);
+  border: 1px solid var(--line-dark);
+  border-radius: var(--radius-pill);
+}
+
+.flags {
+  display: inline-flex;
+  gap: var(--sp-1);
+}
+
+.flag {
+  width: 24px;
+  height: 16px;
+  object-fit: cover;
+  border-radius: calc(var(--radius-sm) / 4);
+  box-shadow: 0 0 0 1px var(--line-dark);
+}
+
+/* A lead-in to the headline: the headline's face, set small, in the logo gold. */
+.kicker {
+  font-family: var(--font-heading);
+  font-size: var(--fs-lead);
+  font-weight: 600;
+  color: var(--accent-500);
+  margin-bottom: var(--sp-2);
 }
 
 .title {
@@ -92,6 +104,19 @@
   color: #fff;
   margin-bottom: var(--sp-5);
   text-wrap: balance;
+  display: grid;
+}
+
+/* Headlines share one cell and cross-fade with the banner (same 900ms as the slides). */
+.headline {
+  grid-area: 1 / 1;
+  opacity: 0;
+  transition: opacity 900ms ease-in-out;
+}
+.headlineActive { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .headline { transition: none; }
 }
 
 .accent { color: var(--accent-500); }
@@ -128,17 +153,37 @@
 }
 .highlights svg { color: var(--accent-500); flex: none; }
 
-@media (max-width: 1100px) {
-  /* Less room for copy, so the overlay carries more of the contrast. */
-  .hero::after {
-    background: linear-gradient(
-      90deg,
-      rgba(1, 18, 47, 0.97) 0%,
-      rgba(1, 18, 47, 0.95) 45%,
-      rgba(1, 18, 47, 0.86) 66%,
-      rgba(1, 18, 47, 0.45) 100%
-    );
+/*
+ * With the banner, the hero is the shape of the artwork, so the whole photograph shows
+ * with nothing cropped. It used to fill the screen below the header, which cropped the
+ * left of the image whenever the screen was taller than the banner. Padding tracks the
+ * viewport height rather than the width, since height is what runs out.
+ */
+@media (min-width: 861px) {
+  .hero {
+    /* Exactly one screen below the header. The slides cover the box anchored right and
+       top (SLIDES in Hero.tsx): on a wide screen the crop comes off the bottom, where each
+       banner fades to plain navy anyway; on a tall one it comes off the navy on the left.
+       min-height rather than height, so copy that needs more room still gets it. */
+    min-height: calc(100svh - var(--header-h));
+    /* overflow: hidden makes the box scrollable, which switches off aspect-ratio's
+       content-based minimum and clipped the copy at narrow widths. clip does not. */
+    overflow: clip;
+    /* Anchored to the top, so the trimmed padding is not handed back by centring. */
+    justify-content: flex-start;
+    padding-block: clamp(var(--sp-5), 7svh, 5.5rem);
+    /* 54px above the flags pill, as specified by the client. */
+    padding-top: 3.375rem;
   }
+}
+
+/* Short screens: tighten the vertical rhythm and put the highlights on one line. */
+@media (min-width: 861px) and (max-height: 760px) {
+  .eyebrow { margin-bottom: var(--sp-3); }
+  .title { margin-bottom: var(--sp-4); }
+  .lead { margin-bottom: var(--sp-5); }
+  .actions { margin-bottom: var(--sp-5); }
+  .highlights { max-width: none; padding-top: var(--sp-4); column-gap: var(--sp-4); }
 }
 
 @media (max-width: 860px) {
@@ -149,11 +194,12 @@
    */
   .copy { max-width: none; padding-right: 0; }
 
-  .hero::after { display: none; }
   .highlights { max-width: none; }
 }
 
 @media (max-width: 480px) {
   .actions { flex-direction: column; align-items: stretch; }
   .highlights { gap: var(--sp-2) var(--sp-4); }
+  /* Flags and label stack here; a full capsule on two lines reads as a lozenge. */
+  .eyebrow { border-radius: var(--radius-lg); padding-inline: var(--sp-3); }
 }

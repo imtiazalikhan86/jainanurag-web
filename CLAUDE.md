@@ -52,12 +52,15 @@ src/
 └── styles/         variables.css, globals.css, responsive.css
 ```
 
-`pages/Home/HomePage.tsx` composes nine section components and contains no markup of its
+`pages/Home/HomePage.tsx` composes nine section components plus the closing CtaBand and contains no markup of its
 own. Sections own their content, styles and responsive behaviour so they can be reordered
 or reused on inner pages.
 
-Homepage section order (from the brief, do not reorder without reason): Hero → Trust →
-Services → Global Business → Why Choose Us → Journey → Industries → About → CTA.
+Homepage section order and copy come from the client's content sheet (`Web design and
+content.xlsx`), which supersedes the brief's order: Hero → Partner → Services → Industries →
+Global Business (flags) → How We Work → Stats → About → FAQ → CTA. (Industries was moved
+ahead of Global Business, against the sheet, so the bands alternate dark and light.) The sheet also
+lists a Team block with no content yet; add it when the client supplies names and bios.
 
 ## Conventions
 
@@ -85,7 +88,11 @@ restructuring. **Do not add a slice for UI state.** Redux Saga is explicitly out
 
 ## Content Rules (important)
 
-The client has not supplied credentials or metrics, and the brief forbids inventing them.
+The brief forbids inventing credentials or metrics.
+
+- The four figures in `STATS` (`constants/home-content.ts`) were supplied by the client in
+  their content sheet and published on their confirmation. Change them only on the client's word.
+- The homepage FAQ answers are drafted, not supplied — marked `TODO(client)` for approval.
 
 - **Never add** years of experience, client counts, success rates, awards, certifications,
   testimonials, or client logos unless the client provides them in writing.
@@ -198,7 +205,8 @@ image under a lighter overlay is exactly where contrast quietly slips.
 
 `src/assets/images/logo-jainanurag.png` is the supplied lockup, cropped to its content plus
 an even 10px and converted from JPEG so the small type stays crisp. It carries its own navy
-field, which is why **the header and footer are `--ink-800` exactly** — a near-match makes
+field, which is why **the footer is `--ink-800` exactly** (the header uses `--header-bg`,
+`#01193a`, as specified by the client) — a near-match makes
 the lockup read as a lighter rectangle floating on the band. If a surface behind the logo
 changes colour, it needs a plate or a transparent asset from the client.
 
@@ -230,7 +238,7 @@ brand, the seven-item nav and the CTA measure about 1150px together, so a phone 
 could only ever overlap the nav. It lives in the drawer, the footer and the closing call to
 action.
 
-The journey rail becomes a vertical timeline below 600px. Buttons go full width below 480px.
+Buttons go full width below 480px.
 
 ## Accessibility
 
@@ -477,7 +485,7 @@ and a production build inlines the URL as a string.
 
 ## Status
 
-**Done:** homepage (all nine sections) with the auto-advancing hero banner slider; the full
+**Done:** homepage (all sections from the client content sheet) with the auto-advancing hero banner slider; the full
 seven-item navigation with a services mega panel, two narrow panels and a mobile drawer
 accordion; 30 routes covering Services (hub + 15), Start in India (hub + 4), Pricing,
 Resources (hub + 3), Contact and 404; design tokens, lazy loading, SEO head and structured

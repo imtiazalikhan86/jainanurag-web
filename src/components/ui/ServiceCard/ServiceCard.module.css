@@ -79,3 +79,60 @@
 
 .arrow { transition: transform var(--transition); }
 .card:hover .arrow { transform: translateX(4px); }
+
+/*
+ * Hover: a soft gold glow radiates from the icon and fades out across the card. It is a
+ * radial gradient on ::before, revealed by a growing clip-path circle centred on the same
+ * point, so the light seems to come from the service itself. Both colours are theme tokens:
+ * a warm cream on white, a translucent gold on the dark card. The text keeps its normal
+ * colours, since the glow is never strong enough to need them flipped. Keyboard focus gets
+ * the same treatment; under reduced motion the global rule makes it an instant change.
+ */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  /* Centre of the 52px icon plate, inside the card's --sp-6 padding. */
+  --glow-at: calc(var(--sp-6) + 26px) calc(var(--sp-6) + 26px);
+  background: radial-gradient(
+    circle at var(--glow-at),
+    var(--card-glow) 0%,
+    var(--accent-100) 40%,
+    transparent 85%
+  );
+  /* Half strength: a hint of warmth rather than a fill. */
+  opacity: 0.5;
+  clip-path: circle(0 at var(--glow-at));
+  transition: clip-path 650ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+.card:hover::before,
+.card:focus-visible::before {
+  clip-path: circle(150% at var(--glow-at));
+}
+
+/* The index keeps its own absolute position; it only needs lifting. */
+.card > :not(.index) { position: relative; z-index: 1; }
+.index { z-index: 1; }
+.card::after { z-index: 1; }
+
+.index,
+.iconWrap {
+  transition: color 300ms ease 120ms, background-color 300ms ease 120ms, opacity 300ms ease 120ms;
+}
+
+/* The icon plate warms to solid gold, the glow's source; gold fills take navy. */
+.card:hover .iconWrap,
+.card:focus-visible .iconWrap {
+  background: var(--accent-600);
+  color: var(--ink-800);
+}
+
+.card:hover .index,
+.card:focus-visible .index { color: var(--accent-600); opacity: 0.4; }
+
+.card:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.card:focus-visible::after { transform: scaleX(1); }

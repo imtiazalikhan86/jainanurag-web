@@ -18,6 +18,8 @@ interface ImageSliderProps {
   intervalMs?: number;
   className?: string;
   label: string;
+  /** Told whenever the visible slide changes, so a consumer can pair copy with a banner. */
+  onIndexChange?: (index: number) => void;
 }
 
 /**
@@ -33,13 +35,20 @@ interface ImageSliderProps {
  *     hero, a pointer merely resting on the page stopped it advancing at all.
  *   - A hidden tab pauses it too; there is no reason to animate what nobody is watching.
  */
-export function ImageSlider({ slides, intervalMs = 10000, className = '', label }: ImageSliderProps) {
+export function ImageSlider({ slides, intervalMs = 10000, className = '', label, onIndexChange }: ImageSliderProps) {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const reducedMotion = useReducedMotion();
   const timer = useRef<number | undefined>(undefined);
 
-  const advance = useCallback(() => setIndex((current) => (current + 1) % slides.length), [slides.length]);
+  /* Every change goes through here, so the consumer hears about dots and auto-advance alike. */
+  const goTo = useCallback(
+    (next: number) => {
+      setIndex(next);
+      onIndexChange?.(next);
+    },
+    [onIndexChange],
+  );
 
   /*
    * Which slides have been given a `src` yet.
@@ -68,9 +77,10 @@ export function ImageSlider({ slides, intervalMs = 10000, className = '', label 
 
   useEffect(() => {
     if (reducedMotion || paused || slides.length < 2) return;
-    timer.current = window.setInterval(advance, intervalMs);
-    return () => window.clearInterval(timer.current);
-  }, [advance, intervalMs, paused, reducedMotion, slides.length]);
+    /* A timeout per slide rather than one interval, so a dot click restarts the hold. */
+    timer.current = window.setTimeout(() => goTo((index + 1) % slides.length), intervalMs);
+    return () => window.clearTimeout(timer.current);
+  }, [goTo, index, intervalMs, paused, reducedMotion, slides.length]);
 
   useEffect(() => {
     const onVisibility = () => setPaused(document.hidden);
@@ -130,7 +140,7 @@ export function ImageSlider({ slides, intervalMs = 10000, className = '', label 
               className={`${styles.dot} ${slideIndex === active ? styles.dotActive : ''}`}
               aria-label={`Show banner ${slideIndex + 1} of ${slides.length}`}
               aria-current={slideIndex === active ? 'true' : undefined}
-              onClick={() => setIndex(slideIndex)}
+              onClick={() => goTo(slideIndex)}
             />
           ))}
         </div>

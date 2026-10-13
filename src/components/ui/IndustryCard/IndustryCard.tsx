@@ -4,15 +4,16 @@ import styles from './IndustryCard.module.css';
 interface IndustryCardProps {
   icon: IconName;
   name: string;
-  description: string;
+  /** Optional: without one the card is a single row, icon beside the name. */
+  description?: string;
 }
 
 export function IndustryCard({ icon, name, description }: IndustryCardProps) {
   return (
-    <li className={styles.card}>
+    <li className={`${styles.card} ${description ? '' : styles.compact}`}>
       <Icon name={icon} size={24} className={styles.icon} />
       <h3 className={styles.name}>{name}</h3>
-      <p className={styles.description}>{description}</p>
+      {description && <p className={styles.description}>{description}</p>}
     </li>
   );
 }

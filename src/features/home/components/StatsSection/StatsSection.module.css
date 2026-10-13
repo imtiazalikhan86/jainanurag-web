@@ -1,0 +1,45 @@
+/* A short band: the figures are the content, so it does not need a full section's depth. */
+.section { padding-block: clamp(var(--sp-7), 1.5rem + 3vw, var(--sp-9)); }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: 0;
+}
+
+/* Value above label visually; dt comes first in the source so the pair reads correctly.
+   Ordered rather than column-reverse, so figures align at the top when a label wraps. */
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-4) var(--sp-5);
+  text-align: center;
+}
+.stat + .stat { border-left: 1px solid var(--line-dark); }
+
+.value {
+  order: -1;
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: var(--fs-display);
+  font-weight: 700;
+  line-height: var(--lh-tight);
+  color: var(--accent-500);
+}
+
+.label {
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+  color: var(--text-on-dark-muted);
+}
+
+@media (max-width: 768px) {
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: var(--sp-5); }
+  .stat:nth-child(3) { border-left: 0; }
+}
+
+@media (max-width: 375px) {
+  .stat { padding-inline: var(--sp-3); }
+}
